@@ -1,0 +1,145 @@
+/* style header */
+
+.header-all .nav-phone {
+    color: #000;
+    margin-right: 57px;
+}
+
+.header-all .nav-phone img {
+    margin-right: 8px;
+}
+
+.header-all .nav-user {
+    margin-right: 62px;
+}
+
+#hero h1 {
+    line-height: 75px;
+    margin-bottom: 32px;
+}
+
+#hero p {
+    line-height: 150%;
+}
+
+
+/* style header */
+
+
+/* style banner top */
+
+#hero .content-first {
+    margin-bottom: 32px !important;
+}
+
+
+/* style banner top */
+
+
+/* style content */
+
+.add-cricle {}
+
+
+/* style content */
+
+#header-login {
+    margin-top: 65px;
+    margin-bottom: 27px;
+}
+
+#login-wrap .col-login-left .login-title {
+    font-size: 36px;
+    line-height: 54px;
+    margin-bottom: 16px;
+}
+
+#login-wrap .col-login-left .login-p {
+    font-size: 20px;
+    line-height: 30px;
+    margin-bottom: 32px;
+}
+
+#login-wrap .button-socical {
+    width: 306px;
+    padding: 16px 0;
+    text-align: center;
+    font-size: 16px;
+    line-height: 24px;
+    color: #151515;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 8px rgba(67, 88, 134, 0.08), 0px 0px 2px rgba(67, 88, 134, 0.06), 0px 0px 1px rgba(67, 88, 134, 0.04);
+    border-radius: 10px;
+    margin-bottom: 24px;
+}
+
+#login-wrap .button-apple {
+    padding: 8px 0;
+}
+
+#login-wrap .login-span {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+    margin-bottom: 25px;
+}
+
+#login-wrap .w-input {
+    width: 360px;
+}
+
+#login-wrap .form-group label {
+    line-height: 24px;
+}
+
+#login-wrap .form-group {
+    margin-bottom: 24px;
+}
+
+#login-wrap .form-check {
+    width: 360px;
+    padding: 0;
+}
+
+#login-wrap .form-check-label {
+    text-align: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #5B5B5B;
+    margin-bottom: 26px;
+    margin-top: 8px;
+}
+
+#login-wrap .form-check-label span {
+    color: #141196;
+}
+
+#login-wrap .button-submit {
+    background: radial-gradient(100% 662.87% at 9% 0%, #141196 0%, #3BFFAD 100%);
+    border-radius: 32px;
+    color: #fff;
+    width: 268px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    text-transform: uppercase;
+    padding: 17px 0;
+    margin-left: 55px;
+}
+
+#login-wrap .text-bottom {
+    font-size: 20px;
+    line-height: 23px;
+    text-transform: capitalize;
+    color: #000000;
+    margin-top: 40px !important;
+    margin-left: 8px;
+}
+
+#login-wrap .text-bottom .link-blue {
+    color: #141196;
+}
