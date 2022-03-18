@@ -1066,6 +1066,10 @@ h1.black-title {
 /*--------------------------------------------------------------
 # Doctors
 --------------------------------------------------------------*/
+#doctor img {
+  max-width: 100%;
+}
+
 .doctors {
   background: #fff;
 }
@@ -1444,9 +1448,45 @@ Donwload
   line-height: 150%;
   color: #fff;
 }
-.download-img img:nth-child(2){
+
+.download-img img:nth-child(2) {
   padding-left: 30px;
 }
+
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
+#footer .information {
+  margin-left: auto;
+  margin-right: 32px;
+}
+
+#footer .information i {
+  font-size: 24px;
+}
+
+#footer .information tr {
+  margin-bottom: 16px;
+}
+
+#footer .information td:first-child {
+  padding-right: 16px;
+}
+
+#footer .information a {
+  color: #000;
+}
+
+#page_elder .overlay {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: 1;
+}
+.lv2{
+  z-index: 2;
+}
