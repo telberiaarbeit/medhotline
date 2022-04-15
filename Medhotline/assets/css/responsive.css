@@ -1,0 +1,41 @@
+@media only screen and (max-width: 736px) {
+    .container {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    footer .information {
+        float: unset;
+        margin-top: 34px !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .hero-mobile {
+        width: 100%;
+        height: 630px;
+    }
+
+    #site-content .hero {
+        display: none
+    }
+
+    .widget:first-child {
+        display: none
+    }
+
+    .nav-user {
+        display: none
+    }
+
+    .nav-menu {
+        float: right;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+
+    .custom-logo {
+        float: left;
+    }
+
+}
