@@ -26,7 +26,6 @@ get_header();
 
     $text_button = get_field('text_button');
 
-
     ?>
     <section class="hero" style="background-image: url('<?php echo $bg_image; ?>')">
 
@@ -69,7 +68,7 @@ get_header();
 
     <!-- ======= Why Us Section ======= -->
 
-    <section class="our-advantage">
+    <section class="our-advantage2">
         <div class="container">
 
             <div class="row">
@@ -88,235 +87,412 @@ get_header();
 
             </div>
 
-            <div class="row">
+            <div class="service">
+                <div class="row">
 
-                <?php
+                    <?php
 
-                $advantage_field = get_field('advantage_field');
+                    $advantage_field = get_field('advantage_field');
 
-                foreach ($advantage_field as $advantage) {
+                    foreach ($advantage_field as $advantage) {
 
-                    echo '<div class="col-md-3 col-12 text-center">';
+                        echo '<div class="col-md-6 col-12 text-left">';
 
-                    echo '<div class="advantage">';
+                        echo '<div class="advantage" style="margin-left:24px; margin-top:24px">';
 
-                    echo '<div class="icon">';
+                        echo '<div class="icon">';
 
-                    if ($advantage['advantage_icon']) {
+                        if ($advantage['advantage_icon']) {
 
-                        echo '<img src="' . $advantage['advantage_icon'] . '">';
+                            echo '<img src="' . $advantage['advantage_icon'] . '">';
+                        }
+
+                        echo '</div>';
+
+                        echo '<div class="sub-title">';
+
+                        if ($advantage['advantage_sub_title']) {
+
+                            echo '<h2>' . $advantage['advantage_sub_title'] . '</h2>';
+                        }
+
+                        echo '</div>';
+
+                        echo '<div class="description description-main">';
+
+                        if ($advantage['advantage_description']) {
+
+                            echo $advantage['advantage_description'];
+                        }
+
+                        echo '</div>';
+
+                        echo '</div>';
+
+                        echo '</div>';
                     }
 
-                    echo '</div>';
+                    ?>
 
-                    echo '<div class="sub-title">';
-
-                    if ($advantage['advantage_sub_title']) {
-
-                        echo '<h2>' . $advantage['advantage_sub_title'] . '</h2>';
-                    }
-
-                    echo '</div>';
-
-                    echo '<div class="description description-main">';
-
-                    if ($advantage['advantage_description']) {
-
-                        echo $advantage['advantage_description'];
-                    }
-
-                    echo '</div>';
-
-                    echo '</div>';
-
-                    echo '</div>';
-                }
-
-                ?>
-
-            </div>
+                </div>
+            </div>                                          
 
         </div>
     </section>
+
+
     <!-- End Why Us Section -->
 
-    <!-- ======= About Section ======= -->
+<?php
+
+$med_help_title = get_field('med_help_title');
+
+$med_help_description = get_field('med_help_description');
+
+$med_help_image = get_field('med_help_image');
+
+?>
+
+<section class="med-help p-0" style="margin-top: 26px;">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-6 col-12">
+
+                        <h1 class="title title-main"><?php if($med_help_title){ echo $med_help_title; } ?></h1>
+
+                    <div class="description description-main">
+
+                        <?php if($med_help_description){ echo $med_help_description; } ?>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 col-12">
+
+                    <div class="image">
+
+                        <?php 
+
+                            if($med_help_image){
+
+                                echo '<img src="'.$med_help_image.'" />';
+
+                            }
+
+                        ?>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+</section>        
+
+<!-- Wie funktioniert Medhotline? -->
+
+<?php
+
+$med_work_title = get_field('medhotline_work_title');
+
+$med_work_field = get_field('medhotline_work_field');
+
+$medhotline_work_button_link = get_field('medhotline_work_button_link');
+
+$medhotline_work_button_text = get_field('medhotline_work_button_text');
+
+?>
+
+<div class="med-function2">
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-12 col-12"><h1 class="title title-main"><?php if($med_work_title){ echo $med_work_title; }?></h1></div>
+
+    </div>
+
     <?php
 
-    $schritte_1 = get_field('schritte_kann_1');
-    $schritte_2 = get_field('schritte_kann_2');
-    $schritte_3 = get_field('schritte_kann_3');
-    $schritte_4 = get_field('schritte_kann_4');
-    $schritte_5 = get_field('schritte_kann_5');
+        if($med_work_field){
+
+            foreach($med_work_field as $med_work){
+
+                echo '<div class="work-column">';
+
+                if($med_work['medhotline_work_number']){
+
+                    echo '<img src="'.$med_work['medhotline_work_number'].'" />';
+
+                }
+
+                if($med_work['medhotline_work_description']){
+
+                    echo $med_work['medhotline_work_description'];
+
+                }
+
+                echo '</div>';
+
+            }
+
+        }
+
+        if($medhotline_work_button_link){
+
+            echo '<div class="row"><div class="col-md-12 col-12 text-right"><a href="'.$medhotline_work_button_link.'" class="btn-get-started">'.$medhotline_work_button_text.'</a></div></div>';
+
+        }
+
     ?>
-    <section id="about" class="about">
+
+</div>
+
+</div>
+
+<!-- Med function -->
+
+<!-- Product Package -->
+<div class="product-package">
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-12 col-12">
+
+            <h1 class="title title-main">Preise</h1>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <?php echo do_shortcode('[list_product]'); ?>
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- End Product Package -->
+
+
+<?php
+        $register_image = get_field('register_image');
+        $register_title = get_field('register_title');
+        $register_content = get_field('register_content');
+        $register_icons_instagram = get_field('register_icons_instagram');
+        $register_icons_facebook = get_field('register_icons_facebook');
+        $add_register_ctf = get_field('add_register_ctf');
+    ?>
+
+    <div class="register-address" style="background-image: url('<?php echo $register_image; ?>')">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 col-12">
-                    <h1 class="title title-main"><?php the_field('titel_kann'); ?></h1>
-                </div>
-            </div>
-            <?php if (isset($schritte_1)) { ?>
-                <div class="row column left">
-                    <?php foreach ($schritte_1 as $schritte_1) { ?>
-                        <div class="step step-<?php echo $schritte_1['number_kann']; ?> d-flex col-md-3">
-                            <p class="title"><?php echo $schritte_1['number_kann']; ?></p>
-                            <p><?php echo $schritte_1['inhalt_kann']; ?></p>
+                    <div class="col-md-6 col-6">
+                        <div class="register-content">
+                            <?php
+                                if($register_title){
+                                    echo '<h2 class="register_title">'.$register_title.'</h2>';
+                                }
+                                if($register_content){
+                                    echo '<div class="register_content">'.$register_content.'</div>';
+                                }
+                            ?>
                         </div>
-                    <?php } ?>
-                </div>
-            <?php } ?>
-            <?php if (isset($schritte_2)) { ?>
-                <div class="row column column-2 right mt-90">
-                    <?php foreach ($schritte_2 as $schritte_2) { ?>
-                        <div class="step step-<?php echo $schritte_2['number_kann']; ?> d-flex col-md-3">
-                            <p class="title"><?php echo $schritte_2['number_kann']; ?></p>
-                            <p><?php echo $schritte_2['inhalt_kann']; ?></p>
-                        </div>
-                    <?php } ?>
-                </div>
-            <?php } ?>
-            <?php if (isset($schritte_3)) { ?>
-                <div class="row column column-3 left mt-90">
-                    <?php foreach ($schritte_3 as $schritte_3) { ?>
-                        <div class="step step-<?php echo $schritte_3['number_kann']; ?> d-flex col-md-3">
-                            <p class="title"><?php echo $schritte_3['number_kann']; ?></p>
-                            <p><?php echo $schritte_3['inhalt_kann']; ?></p>
-                        </div>
-                    <?php } ?>
-                </div>
-            <?php } ?>
-
-            <?php if (isset($schritte_4)) { ?>
-                <div class="row column column-4 right">
-                    <?php foreach ($schritte_4 as $schritte_4) { ?>
-                        <div class="step step-<?php echo $schritte_4['number_kann']; ?> d-flex col-md-3">
-                            <p class="title"><?php echo $schritte_4['number_kann']; ?></p>
-                            <p><?php echo $schritte_4['inhalt_kann']; ?></p>
-                        </div>
-                    <?php } ?>
-                </div>
-            <?php } ?>
-            <?php if (isset($schritte_5)) { $i = 1; ?>
-                <div class="row column column-5 left ">
-                    <?php foreach ($schritte_5 as $schritte_5) { ?>
-
-                        <?php if ($i == 2) { ?>
-                            <div class="step step-10-center d-flex col-md-3">
-                                <p><?php echo $schritte_5['inhalt_kann']; ?></p>
+                    </div>
+                    <div class="col-md-6 col-6">
+                        <div class="register_information">
+                            <div class="register_mail">
+                                <?php
+                                    if($add_register_ctf){
+                                        echo $add_register_ctf;
+                                    }
+                                ?>
                             </div>
-                        <?php } else { ?>
-                            <div class="step d-flex col-md-3">
-                                <p><?php echo $schritte_5['inhalt_kann']; ?></p>
-                            </div>
-                    <?php   }
-                        $i++;
-                    } ?>
-                </div>
-            <?php } ?>
-        </div>
-
-    </section>
-    <!-- End About Section -->
-
-    <!-- ======= Counts Section ======= -->
-    <?php $list_item_preise = get_field('package'); ?>
-    <section id="counts" class="counts">
-        <div class="container">
-            <h1 class="title title-main"><?php the_field('price_title'); ?></h1>
-            <?php if (isset($list_item_preise)) { ?>
-                <div class="fix-width">
-                    <div class="row">
-                        <?php foreach ($list_item_preise as $item) { ?>
-                            <div class="col-lg-4 col-12">
-                                <div class="price">
-                                    <h1 class="title"><?php echo $item['name_package']; ?></h1>
-                                    <?php echo $item['description_package']; ?>
-                                    <p class="text-price">€ <?php echo $item['price_package']; ?> </p>
+                            <div class="register_icons">
+                                <div class="row">
+                                    <div class="icons_1">
+                                        <?php
+                                            if($register_icons_instagram){
+                                                echo '<img src="' .$register_icons_instagram. '">';
+                                            } 
+                                        ?>
+                                    </div>
+                                    <div class="icons_2">
+                                        <?php
+                                            if($register_icons_facebook){
+                                                echo '<img src="' .$register_icons_facebook. '">';
+                                            } 
+                                        ?>
+                                    </div>
                                 </div>
-                            </div>
-                        <?php } ?>
+                            </div>    
+                        </div>
                     </div>
                 </div>
-            <?php } ?>
-        </div>
-    </section>
-    <!-- End Counts Section -->
-
-    <!-- ======= Services Section ======= -->
-    <?php
-    $inhalt_left = get_field('inhalt_left');
-    $inhalt_right = get_field('inhalt_right');
-    ?>
-    <section id="services" class="services">
-        <div class="container">
-            <h1 class="title title-main"><?php the_field('titel_behandeln'); ?></h1>
-            <div class="wrap-service">
-                <div class="row">
-                    <?php
-                    if (isset($inhalt_left)) {
-
-                    ?>
-                        <div class="col-md-6 col-12">
-                            <div class="content_behandeln">
-                                <?php foreach ($inhalt_left as $inhalt_left) {
-                                    echo '<p>' . $inhalt_left['inhalt_behandeln_left'] . '</p>';
-                                }
-                                ?>
-                            </div>
-                        </div>
-                    <?php } ?>
-                    <?php
-                    if (isset($inhalt_right)) {
-                    ?>
-                        <div class="col-md-6 col-12">
-                            <div class="content_behandeln">
-                                <?php foreach ($inhalt_right as $inhalt_right) {
-                                    echo '<p>' . $inhalt_right['inhalt_behandeln_right'] . '</p>';
-                                }
-                                ?>
-                            </div>
-                        </div>
-                    <?php } ?>
-                </div>
             </div>
         </div>
-    </section>
-    <!-- End Services Section -->
+    </div> 
+    
+<!-- End Sie wollen sich später entscheiden? -->
 
-    <?php
-    $insurance_image = get_field('insurance_image');
-    $insurance_title = get_field('insurance_title');
-    $insurance_content = get_field('insurance_content');
-    $insurance_link_button = get_field('insurance_link_button');
-    $insurance_text_button = get_field('insurance_text_button');
-    ?>
-    <section class="insurance">
-        <div class="row">
-            <div class="col-md-6 col-12">
-                <div class="border-image">
+
+<?php
+
+    $bg_download_default = get_stylesheet_directory_uri() . '/assets/images/download.png';
+
+    $bg_download_der_app = get_field('background_download_der_app','option');
+
+    $title_download_der_app = get_field('title_download_der_app','option');
+
+    $download_google_play = get_field('download_google_play','option');
+
+    $download_app_store = get_field('download_app_store','option');
+
+    $download_button_link = get_field('download_button_link','option');
+
+    $download_button_text = get_field('download_button_text','option');
+
+?>
+
+<div class="hero download" style="background-image:url('<?php if($bg_download_der_app){ echo $bg_download_der_app; }else{ echo $bg_download_default; } ?>');">
+
+    <div class="container">   
+
+        <div class="wrap"> 
+
+            <div class="row">
+
+                <div class="col-md-12 col-12">
+
                     <?php
-                    if ($insurance_image) {
-                        echo '<img src="' . $insurance_image . '" alt="insurance image"/>';
-                    }
+
+                        if($title_download_der_app){
+
+                            echo '<h1 class="title title-main">'.$title_download_der_app.'</h1>';
+
+                        }
+
                     ?>
+
                 </div>
+
             </div>
-            <div class="col-md-6 col-12">
+
+            <div class="row">
+
                 <?php
-                if ($insurance_title) {
-                    echo '<h1 class="title title-main">' . $insurance_title . '</h1>';
-                }
-                if ($insurance_content) {
-                    echo '<div class="content">' . $insurance_content . '</div>';
-                }
-                if ($insurance_link_button) {
-                    echo '<a href="' . $insurance_link_button . '" class="btn-get-started">' . $insurance_text_button . '</a>';
-                }
+
+                    if($download_google_play){
+
+                        foreach($download_google_play as $download_gg_field){
+
+                            if($download_gg_field['link']){
+
+                                echo '<div class="col-md-2 col-12"><a class="app" href="'.$download_gg_field['link'].'"><img src="'.$download_gg_field['image'].'"></a></div>';
+
+                            }
+
+                        }
+
+                    }
+
+                    if($download_app_store){
+
+                        foreach($download_app_store as $download_app_field){
+
+                            if($download_app_field['link']){
+
+                                echo '<div class="col-md-2 col-12"><a class="app" href="'.$download_app_field['link'].'"><img src="'.$download_app_field['image'].'"></a></div>';
+
+                            }
+
+                        }
+
+                    }
+
                 ?>
+
             </div>
+
+            <?php
+
+                if($download_button_link){
+
+                    echo '<a href="'.$download_button_link.'" class="btn-get-started">'.$download_button_text.'</a>';
+
+                }
+
+            ?>
+
         </div>
-    </section>
+
+    </div>
+
+</div>
+
+<!-- Download der App -->
+
+<?php
+
+$title_form = get_field('title_form');
+
+$description_form = get_field('description_form');
+
+$ctf_shortcode_form = get_field('add_shortcode_ctf');
+
+?>
+
+<div class="contact-form">
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-7 col-12">
+
+            <?php
+
+                if($title_form){
+
+                    echo '<div class="title-main">'.$title_form.'</div>';
+
+                }
+
+                if($description_form){
+
+                    echo '<div class="note">'.$description_form.'</div>';
+
+                }
+
+                if($ctf_shortcode_form){
+
+                    echo $ctf_shortcode_form;
+
+                }
+
+            ?>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div> 
+
+<!-- Contact Form  -->
+
 </main>
 
 <?php get_footer('no-review'); ?>

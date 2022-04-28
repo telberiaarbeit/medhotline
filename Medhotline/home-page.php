@@ -133,14 +133,14 @@ get_header();
                 ?>
             </div>
             <div class="row">
-                <div class="col-md-9 col-12">
+                <div class="col-lg-9 col-md-9 col-sm-9 col-12">
                     <dl class="faqs">
                         <?php
                             $faqs = get_field('faq_field');
                             foreach($faqs as $faq){
                                 echo '<div class="line">';
                                     if($faq['faq_title']){
-                                        echo '<dt>'.$faq['faq_title'].'<span class="plusminus">&plus;</span></dt>';
+                                        echo '<dt>'.$faq['faq_title'].'<span class="plusminus"></span></dt>';
                                     }
                                     if($faq['faq_description']){
                                         echo '<dd>'.$faq['faq_description'].'</dd>';
@@ -239,11 +239,26 @@ get_header();
         </div>
     </div>
     <!-- Download der App -->
+    <?php
+        $title_form = get_field('title_form');
+        $description_form = get_field('description_form');
+        $ctf_shortcode_form = get_field('add_shortcode_ctf');
+    ?>
     <div class="contact-form">
         <div class="container">
             <div class="row">
                 <div class="col-md-7 col-12">
-                    <?php echo do_shortcode('[contact-form-7 id="531" title="Reden Sie mit uns!"]');?>
+                    <?php
+                        if($title_form){
+                            echo '<div class="title-main">'.$title_form.'</div>';
+                        }
+                        if($description_form){
+                            echo '<div class="note">'.$description_form.'</div>';
+                        }
+                        if($ctf_shortcode_form){
+                            echo $ctf_shortcode_form;
+                        }
+                    ?>
                 </div>
             </div>
         </div>

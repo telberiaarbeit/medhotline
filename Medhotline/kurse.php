@@ -8,6 +8,7 @@ $kurse_hero_title = get_field('title_page');
 $kurse_hero_description = get_field('description_hero');
 $training_class_image = get_field('training_class_image');
 $biker_image = get_field('biker_image');
+$kurse_register_form = get_field('register_form');
 ?>
 <main id="site-content">
     <div class="kurse">
@@ -62,7 +63,7 @@ $biker_image = get_field('biker_image');
                 $course_duration = get_field('duration');
                 $course_cost = get_field('cost');
                 $course_location = get_field('course_location');
-                $course_register_button_link = get_field('register_button_link');
+                // $course_register_button_link = get_field('register_button_link');
                 $course_register_button_text = get_field('register_button_text');
                 $course_date_img = get_stylesheet_directory_uri() . '/assets/images/calendar.png';
                 $course_duration_img = get_stylesheet_directory_uri() . '/assets/images/lock.png';
@@ -147,14 +148,28 @@ $biker_image = get_field('biker_image');
                                 ?>
                             </div>
                             <div class="col-md-12 col-sm-12 col-12">
-                                <?php
-                                    if($course_register_button_link){
-                                        echo '<a href="'.$course_register_button_link.'" class="btn-get-started">'.$course_register_button_text.'</a>';
-                                    }
-                                ?>
-                                
+                                <div id="accordion" class="accordion">
+                                    <div id="headingOne">
+                                        <button class="btn-get-started" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <?php 
+                                                if($course_register_button_text){
+                                                    echo $course_register_button_text;
+                                                }   
+                                            ?>
+                                        </button>
+                                    </div>
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                        <div class="contact-form register-popup">
+                                            <button type="button" class="close" data-toggle="collapse" data-target="#collapseOne" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <?php
+                                            if($kurse_register_form){
+                                                echo $kurse_register_form;
+                                            }
+                                        ?>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            
                         </div>
                     </div>
                     <!-- Date Time -->
@@ -175,7 +190,7 @@ $biker_image = get_field('biker_image');
         $grundkurs_16_duration = get_field('duration_grundkurs_16');
         $grundkurs_16_cost = get_field('cost_grundkurs_16');
         $grundkurs_16_course_location = get_field('course_location_grundkurs_16');
-        $grundkurs_16_register_bt_link = get_field('register_button_link_grundkurs_16');
+        // $grundkurs_16_register_bt_link = get_field('register_button_link_grundkurs_16');
         $grundkurs_16_register_bt_text = get_field('register_button_text_grundkurs_16');
     ?>
     <div class="course-16 p-75">
@@ -259,12 +274,27 @@ $biker_image = get_field('biker_image');
                             ?>
                         </div>
                         <div class="col-md-12 col-sm-12 col-12">
-                            <?php
-                                if($grundkurs_16_register_bt_link){
-                                    echo '<a href="'.$grundkurs_16_register_bt_link.'" class="btn-get-started">'.$grundkurs_16_register_bt_text.'</a>';
-                                }
-                            ?>
-                            
+                            <div id="accordiontwo" class="accordion">
+                                <div id="headingTwo">
+                                    <button class="btn-get-started" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                        <?php 
+                                            if($grundkurs_16_register_bt_text){
+                                                echo $grundkurs_16_register_bt_text;
+                                            }  
+                                        ?>
+                                    </button>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordiontwo">
+                                    <div class="contact-form register-popup">
+                                        <button type="button" class="close" data-toggle="collapse" data-target="#collapseTwo" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <?php
+                                        if($kurse_register_form){
+                                            echo $kurse_register_form;
+                                        }
+                                    ?>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                     </div>
@@ -282,7 +312,7 @@ $biker_image = get_field('biker_image');
         $grundkurs_6_duration = get_field('duration_grundkurs_6');
         $grundkurs_6_cost = get_field('cost_grundkurs_6');
         $grundkurs_6_location = get_field('location_grundkurs_6');
-        $grundkurs_6_register_button_link = get_field('register_button_link_grundkurs_6');
+        // $grundkurs_6_register_button_link = get_field('register_button_link_grundkurs_6');
         $grundkurs_6_register_button_text = get_field('register_button_text_grundkurs_6');
     ?>
     <div class="course course-6 p-75">
@@ -344,11 +374,27 @@ $biker_image = get_field('biker_image');
                         ?>
                     </div>
                     <div class="col-md-12 col-sm-12 col-12">
-                        <?php
-                            if($grundkurs_6_register_button_link){
-                                echo '<a href="'.$grundkurs_6_register_button_link.'" class="btn-get-started">'.$grundkurs_6_register_button_text.'</a>';
-                            }
-                        ?>
+                        <div id="accordionthree" class="accordion">
+                            <div id="headingThree">
+                                <button class="btn-get-started" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                    <?php 
+                                        if($grundkurs_16_register_bt_text){
+                                            echo $grundkurs_16_register_bt_text;
+                                        }  
+                                    ?>
+                                </button>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionthree">
+                                <div class="contact-form register-popup">
+                                    <button type="button" class="close" data-toggle="collapse" data-target="#collapseThree" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <?php
+                                    if($kurse_register_form){
+                                        echo $kurse_register_form;
+                                    }
+                                ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -366,7 +412,7 @@ $biker_image = get_field('biker_image');
         $kindern_duration = get_field('duration_kindern');
         $kindern_cost = get_field('cost_kindern');
         $kindern_location = get_field('location_kindern');
-        $kindern_register_button_link = get_field('register_button_link_kindern');
+        // $kindern_register_button_link = get_field('register_button_link_kindern');
         $kindern_register_button_text = get_field('register_button_text_kindern');
     ?>
     <div class="course-16 kindern p-75">
@@ -450,11 +496,27 @@ $biker_image = get_field('biker_image');
                             ?>
                         </div>
                         <div class="col-md-12 col-sm-12 col-12">
-                            <?php
-                                if($kindern_register_button_link){
-                                    echo '<a href="'.$kindern_register_button_link.'" class="btn-get-started">'.$kindern_register_button_text.'</a>';
-                                }
-                            ?>
+                            <div id="accordionfour" class="accordion">
+                                <div id="headingFour">
+                                    <button class="btn-get-started" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                        <?php 
+                                            if($kindern_register_button_text){
+                                                echo $kindern_register_button_text;
+                                            }  
+                                        ?>
+                                    </button>
+                                </div>
+                                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionfour">
+                                    <div class="contact-form register-popup">
+                                        <button type="button" class="close" data-toggle="collapse" data-target="#collapseFour" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <?php
+                                        if($kurse_register_form){
+                                            echo $kurse_register_form;
+                                        }
+                                    ?>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -475,7 +537,7 @@ $biker_image = get_field('biker_image');
         $diver_duration = get_field('duration_diver');
         $diver_cost = get_field('cost_diver');
         $diver_location = get_field('location_diver');
-        $diver_register_button_link = get_field('register_button_link_diver');
+        // $diver_register_button_link = get_field('register_button_link_diver');
         $diver_register_button_text = get_field('register_button_text_diver');
     ?>
     <div class="diver p-75">
@@ -591,11 +653,27 @@ $biker_image = get_field('biker_image');
                             ?>
                         </div>
                         <div class="col-md-12 col-sm-12 col-12">
-                            <?php
-                                if($diver_register_button_link){
-                                    echo '<a href="'.$diver_register_button_link.'" class="btn-get-started">'.$diver_register_button_text.'</a>';
-                                }
-                            ?>
+                            <div id="accordionfive" class="accordion">
+                                <div id="headingFive">
+                                    <button class="btn-get-started" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                                        <?php 
+                                            if($diver_register_button_text){
+                                                echo $diver_register_button_text;
+                                            }  
+                                        ?>
+                                    </button>
+                                </div>
+                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionfive">
+                                    <div class="contact-form register-popup">
+                                        <button type="button" class="close" data-toggle="collapse" data-target="#collapseFive" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <?php
+                                        if($kurse_register_form){
+                                            echo $kurse_register_form;
+                                        }
+                                    ?>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

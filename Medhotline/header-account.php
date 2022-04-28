@@ -40,12 +40,12 @@
 					<div class="col-md-3"></div>
 					<div class="col-md-6">
 						<div class="row">
-							<div class="col-md-8 text-right">
+							<div class="col-md-6 text-right">
 								<!-- Header phone -->
 								<?php dynamic_sidebar( 'header-phone' ); ?>
 								<!-- Header phone -->
 							</div>
-							<div class="col-md-2 text-center">
+							<div class="col-md-4 text-center">
 								<!-- Check user login -->
 								<?php if ( is_user_logged_in() ) { ?>
 									<a href="<?php echo wp_logout_url();?>" class="nav-user"><img src="<?php echo get_stylesheet_directory_uri() ?>/assets/images/user.svg" alt="" width="32px" height="32px"></a>
@@ -63,47 +63,4 @@
 					</div>
 				</div>
 			</div><!-- .container -->
-			<!-- Menu -->
-			<div class="menu-main">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-12">
-							<?php
-								if ( has_nav_menu( 'primary' )) {
-									?>
-
-										<nav class="primary-menu-wrapper" aria-label="<?php echo esc_attr_x( 'Horizontal', 'menu', 'twentytwenty' ); ?>">
-
-											<ul>
-
-											<?php
-												if ( has_nav_menu( 'primary' ) ) {
-
-													wp_nav_menu(
-														array(
-															'container'  => '',
-															'items_wrap' => '%3$s',
-															'theme_location' => 'primary',
-														)
-													);
-
-												} 
-											?>
-
-											</ul>
-
-										</nav><!-- .primary-menu-wrapper -->
-
-									<?php
-								}
-							?>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End Menu -->
 		</header><!-- #site-header -->
-
-		<?php
-		// Output the menu modal.
-		//get_template_part( 'template-parts/modal-menu' );

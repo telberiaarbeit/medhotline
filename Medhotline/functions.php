@@ -70,13 +70,15 @@ if( function_exists('acf_add_options_page') ) {
 
 /* Custom page login */
 function filter_login_form_middle( $text, $args ) { 
-    $text = '<div class="privacy-text">Indem ich fortfahre, bestätige ich, dass ich über 18 Jahre alt bin und den <strong>Nutzungsbedingungen</strong> und <strong>Datenschutzbestimmungen</strong> von MedHotline zustimme.</div>';
+    $text = '<div class="privacy-text"><a href="#">Passwort vergessen?</a></div>';
     return $text; 
 }; 
 add_filter( 'login_form_middle', 'filter_login_form_middle', 10, 2 ); 
 
-function filter_login_form_top( $text, $args ) { 
-    $text = '<div class="order-email">oder per E-Mail</div>';
+function filter_login_form_top( $text, $args ) {
+    global $post;
+    $order_per_mail = get_field('order_per_mail',$post->ID);
+    $text = '<div class="order-email">'.$order_per_mail.'</div>';
     return $text; 
 }; 
 add_filter( 'login_form_top', 'filter_login_form_top', 10, 2 ); 
@@ -99,7 +101,7 @@ function my_login_redirect( $redirect_to, $request, $user ) {
 add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 
 function redirect_login_page() {
-    $login_page  = home_url( '/sign-up/' );
+    $login_page  = home_url( '/sign-in/' );
     $page_viewed = basename($_SERVER['REQUEST_URI']);  
     if( $page_viewed == "wp-login.php" && $_SERVER['REQUEST_METHOD'] == 'GET') {
         wp_redirect($login_page);
@@ -109,13 +111,13 @@ function redirect_login_page() {
 add_action('init', 'redirect_login_page');
 
 function login_failed() {
-    $login_page  = home_url( '/sign-up/' );
+    $login_page  = home_url( '/sign-in/' );
     wp_redirect( $login_page . '?login=failed' );
     exit;
 }
 add_action( 'wp_login_failed', 'login_failed' );  
 function verify_username_password( $user, $username, $password ) {
-    $login_page  = home_url( '/sign-up/' );
+    $login_page  = home_url( '/sign-in/' );
     if( $username == "" || $password == "" ) {
         wp_redirect( $login_page . "?login=empty" );
         exit;
@@ -209,3 +211,75 @@ function list_product_custom(){
     return $list_post;
 }
 add_shortcode('list_product','list_product_custom');
+
+add_shortcode( 'wc_reg_form_bbloomer', 'bbloomer_separate_registration_form' );
+    
+function bbloomer_separate_registration_form() {
+    global $post;
+    $order_per_mail = get_field('order_per_mail',$post->ID);
+   if ( is_admin() ) return;
+   if ( is_user_logged_in() ) return;
+   ob_start();
+ 
+   // NOTE: THE FOLLOWING <FORM></FORM> IS COPIED FROM woocommerce\templates\myaccount\form-login.php
+   // IF WOOCOMMERCE RELEASES AN UPDATE TO THAT TEMPLATE, YOU MUST CHANGE THIS ACCORDINGLY
+ 
+   do_action( 'woocommerce_before_customer_login_form' );
+ 
+   ?>
+      <form method="post" class="woocommerce-form woocommerce-form-register register" <?php do_action( 'woocommerce_register_form_tag' ); ?> >
+ 
+         <?php do_action( 'woocommerce_register_form_start' ); ?>
+         <?php echo '<div class="order-email">'.$order_per_mail.'</div>'; ?>
+         <p class="login-username">
+            <label for="reg_email"><?php esc_html_e( 'E-Mail', 'woocommerce' ); ?></label>
+            <input type="email" class="woocommerce-Input woocommerce-Input--text input-text" name="email" id="reg_email" autocomplete="email" value="<?php echo ( ! empty( $_POST['email'] ) ) ? esc_attr( wp_unslash( $_POST['email'] ) ) : ''; ?>" /><?php // @codingStandardsIgnoreLine ?>
+         </p>
+ 
+         <?php if ( 'yes' === get_option( 'woocommerce_registration_generate_password' ) ) : ?>
+ 
+            <p class="login-password">
+               <label for="reg_password"><?php esc_html_e( 'Passwort erstellen', 'woocommerce' ); ?></label>
+               <input type="password" class="woocommerce-Input woocommerce-Input--text input-text" name="password" id="reg_password" autocomplete="new-password" />
+               <i class="bi bi-eye-slash" id="togglePassword"></i>
+            </p>
+ 
+         <?php else : ?>
+ 
+            <p><?php esc_html_e( 'A password will be sent to your email address.', 'woocommerce' ); ?></p>
+ 
+         <?php endif; ?>
+ 
+         <?php do_action( 'woocommerce_register_form' ); ?>
+ 
+         <p class="login-submit">
+            <?php wp_nonce_field( 'woocommerce-register', 'woocommerce-register-nonce' ); ?>
+            <button type="submit" class="woocommerce-Button woocommerce-button button woocommerce-form-register__submit" name="register" value="<?php esc_attr_e( 'Register', 'woocommerce' ); ?>"><?php esc_html_e( 'Zustimmen und weitermachen', 'woocommerce' ); ?></button>
+         </p>
+ 
+         <?php do_action( 'woocommerce_register_form_end' ); ?>
+ 
+      </form>
+    <script>
+        // Click show/hide password sign up form
+        const togglePassword = document.getElementById("togglePassword");
+        const password = document.getElementById("reg_password");
+        togglePassword.addEventListener("click", function () {
+            // toggle the type attribute
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+            // toggle the icon
+            this.classList.toggle("bi-eye");
+        });
+    </script>
+   <?php
+     
+   return ob_get_clean();
+}
+
+// // define the woocommerce_register_form callback 
+function woocommerce_register_form_text() { 
+    echo '<div class="register-text">Indem ich fortfahre, bestätige ich, dass ich über 18 Jahre alt bin und den <a href="#">Nutzungsbedingungen</a> und <a href="#">Datenschutzbestimmungen</a> von MedHotline zustimme.</div>';
+};    
+// add the action 
+add_action( 'woocommerce_register_form', 'woocommerce_register_form_text', 10, 0 ); 

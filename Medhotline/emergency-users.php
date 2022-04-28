@@ -2,82 +2,77 @@
 
 /**
 
- * Template Name: Elder People
+ * Template Name: Emergency users
 
  *
 
 **/
 
-
-
 get_header();
-
 ?>
-
-
 
 <main id="site-content">
 
-    <?php
+<?php
 
-        $bg_image = get_field('background_image');
+$bg_image = get_field('background_image');
 
-        $title = get_field('title');
+$title = get_field('title');
 
-        $content = get_field('content');
+$content = get_field('content');
 
-        $link_button = get_field('link_button');
+$link_button = get_field('link_button');
 
-        $text_button = get_field('text_button');
+$text_button = get_field('text_button');
 
-    ?>
+?>
 
-	<section class="hero" style="background-image: url('<?php echo $bg_image; ?>')">
+<div class="hero5" style="background-image: url('<?php echo $bg_image; ?>')">
 
-        <div class="container">
+<div class="container">
 
-            <div class="row">
+    <div class="row">
 
-                <div class="col-md-12 col-12">
+        <div class="col-md-12 col-12">
 
-                    <div class="hero-content">
+            <div class="hero-content">
 
-                        <?php
+                <?php
 
-                            if($title){
+                    if($title){
 
-                                echo '<h2 class="title">'.$title.'</h2>';
+                        echo '<h2 class="title">'.$title.'</h2>';
 
-                            }
+                    }
 
-                            if($content){
+                    if($content){
 
-                                echo '<div class="content">'.$content.'</div>';
+                        echo '<div class="content">'.$content.'</div>';
 
-                            }
+                    }
 
-                            if($link_button){
+                    if($link_button){
 
-                                echo '<a href="'.$link_button.'" class="btn-get-started">'.$text_button.'</a>';
+                        echo '<a href="'.$link_button.'" class="btn-get-started">'.$text_button.'</a>';
 
-                            }
+                    }
 
-                        ?>
-
-                    </div>
-
-                </div>
+                ?>
 
             </div>
 
         </div>
 
-    </section>
+    </div>
+
+</div>
+
+</div>
 
 
     <!-- ======= Why Us Section ======= -->
 
-    <section class="our-advantage2">
+    <section class="our-advantage2" style="margin-top: 42px;">
         <div class="container">
 
             <div class="row">
@@ -152,56 +147,57 @@ get_header();
 
     <?php
 
-        $med_help_title = get_field('med_help_title');
+$med_help_title = get_field('med_help_title');
 
-        $med_help_description = get_field('med_help_description');
+$med_help_description = get_field('med_help_description');
 
-        $med_help_image = get_field('med_help_image');
+$med_help_image = get_field('med_help_image');
 
-    ?>
+?>
 
-    <section class="med-help p-0">
+<section class="med-help p-0" style="margin-top: 23px; margin-bottom: 40px;">
 
-        <div class="container">
+<div class="container">
 
-            <div class="row">
+    <div class="row">
 
-                <div class="col-md-6 col-12">
+        <div class="col-md-6 col-12">
 
-                    <h1 class="title title-main"><?php if($med_help_title){ echo $med_help_title; } ?></h1>
+            <h1 class="title title-main"><?php if($med_help_title){ echo $med_help_title; } ?></h1>
 
-                    <div class="description description-main">
+            <div class="description description-main">
 
-                        <?php if($med_help_description){ echo $med_help_description; } ?>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-6 col-12">
-
-                    <div class="image">
-
-                        <?php 
-
-                            if($med_help_image){
-
-                                echo '<img src="'.$med_help_image.'" />';
-
-                            }
-
-                        ?>
-
-                    </div>
-
-                </div>
+                <?php if($med_help_description){ echo $med_help_description; } ?>
 
             </div>
 
         </div>
 
-    </section>
+        <div class="col-md-6 col-12">
 
+            <div class="image">
+
+                <?php 
+
+                    if($med_help_image){
+
+                        echo '<img src="'.$med_help_image.'" />';
+
+                    }
+
+                ?>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+    <!-- End Why Us Section -->
 
     <?php
 
@@ -265,9 +261,7 @@ $medhotline_work_button_text = get_field('medhotline_work_button_text');
 
 <!-- Med function -->
 
-
-<!-- We offer -->
-
+<!-- Product Package -->
 <div class="product-package">
 
 <div class="container">
@@ -292,9 +286,10 @@ $medhotline_work_button_text = get_field('medhotline_work_button_text');
 
 </div>
 
-<!-- Product Package -->
+<!-- End Product Package -->
 
-   
+<!-- Sie wollen sich später entscheiden? -->
+
 <?php
         $register_image = get_field('register_image');
         $register_title = get_field('register_title');
@@ -353,24 +348,25 @@ $medhotline_work_button_text = get_field('medhotline_work_button_text');
         </div>
     </div> 
     
+
 <!-- End Sie wollen sich später entscheiden? -->
 
 
-    <?php
+<?php
 
-$bg_download_default = get_stylesheet_directory_uri() . '/assets/images/download.png';
+    $bg_download_default = get_stylesheet_directory_uri() . '/assets/images/download.png';
 
-$bg_download_der_app = get_field('background_download_der_app','option');
+    $bg_download_der_app = get_field('background_download_der_app','option');
 
-$title_download_der_app = get_field('title_download_der_app','option');
+    $title_download_der_app = get_field('title_download_der_app','option');
 
-$download_google_play = get_field('download_google_play','option');
+    $download_google_play = get_field('download_google_play','option');
 
-$download_app_store = get_field('download_app_store','option');
+    $download_app_store = get_field('download_app_store','option');
 
-$download_button_link = get_field('download_button_link','option');
+    $download_button_link = get_field('download_button_link','option');
 
-$download_button_text = get_field('download_button_text','option');
+    $download_button_text = get_field('download_button_text','option');
 
 ?>
 
@@ -452,58 +448,36 @@ $download_button_text = get_field('download_button_text','option');
 
 <!-- Download der App -->
 
+
 <?php
-
-$title_form = get_field('title_form');
-
-$description_form = get_field('description_form');
-
-$ctf_shortcode_form = get_field('add_shortcode_ctf');
-
-?>
-
-<div class="contact-form">
-
-<div class="container">
-
-    <div class="row">
-
-        <div class="col-md-7 col-12">
-
-            <?php
-
-                if($title_form){
-
-                    echo '<div class="title-main">'.$title_form.'</div>';
-
-                }
-
-                if($description_form){
-
-                    echo '<div class="note">'.$description_form.'</div>';
-
-                }
-
-                if($ctf_shortcode_form){
-
-                    echo $ctf_shortcode_form;
-
-                }
-
-            ?>
-
+        $title_form = get_field('title_form');
+        $description_form = get_field('description_form');
+        $ctf_shortcode_form = get_field('add_shortcode_ctf');
+    ?>
+    <div class="contact-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-12">
+                    <?php
+                        if($title_form){
+                            echo '<div class="title-main">'.$title_form.'</div>';
+                        }
+                        if($description_form){
+                            echo '<div class="note">'.$description_form.'</div>';
+                        }
+                        if($ctf_shortcode_form){
+                            echo $ctf_shortcode_form;
+                        }
+                    ?>
+                </div>
+            </div>
         </div>
-
-    </div>
-
-</div>
-
-</div> 
-
-<!-- Contact Form  -->
+    </div> 
+    <!-- Contact Form  -->
 
 
-</main><!-- #site-content -->
+
+</main>
 
 
 
