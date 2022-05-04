@@ -34,27 +34,33 @@
 
 			<div class="container">
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-lg-3 col-md-3 col-sm-3 col-12">
 						<?php twentytwenty_site_logo(); ?>
 					</div>
-					<div class="col-md-3"></div>
-					<div class="col-md-6">
+					<!-- <div class="col-lg-3 col-md-3 col-sm-3 col-12"></div> -->
+					<div class="col-lg-9 col-md-9 col-sm-9 col-12">
 						<div class="row">
-							<div class="col-md-8 text-right">
+							<div class="col-lg-9 col-md-6 col-sm-6 col-12 text-right">
 								<!-- Header phone -->
 								<?php dynamic_sidebar( 'header-phone' ); ?>
 								<!-- Header phone -->
 							</div>
-							<div class="col-md-2 text-center">
-								<!-- Check user login -->
+							<div class="col-lg-1 col-md-6 col-sm-6 col-12 text-right">
+								<!-- Cart button -->
+								<?php echo do_shortcode("[woo_cart_but]"); ?>
+								<!-- Cart button -->
+							</div>
+							<div class="col-lg-1 col-md-4 col-sm-4 col-12 text-center p-0">
+							<!-- Check user login -->
 								<?php if ( is_user_logged_in() ) { ?>
 									<a href="<?php echo wp_logout_url();?>" class="nav-user"><img src="<?php echo get_stylesheet_directory_uri() ?>/assets/images/user.svg" alt="" width="32px" height="32px"></a>
+								</div>
 								<?php }else{ ?>
 									<a href="<?php echo wp_login_url(); ?>" class="login-user">Log in</a>
-								<?php } ?>
-								<!-- Check user login -->
-							</div>
-							<div class="col-md-2 text-right">
+								</div>
+							<?php } ?>
+							<!-- Check user login -->
+							<div class="col-lg-1 col-md-2 col-sm-2 col-12 text-right menu-tablet">
 								<div class="menu-dropdown">
 									<a href="javascript:void(0)" class="nav-menu"></a>
 								</div>
@@ -72,7 +78,7 @@
 								if ( has_nav_menu( 'primary' )) {
 									?>
 
-										<nav class="primary-menu-wrapper" aria-label="<?php echo esc_attr_x( 'Horizontal', 'menu', 'twentytwenty' ); ?>">
+										<nav aria-label="<?php echo esc_attr_x( 'Horizontal', 'menu', 'twentytwenty' ); ?>">
 
 											<ul>
 
