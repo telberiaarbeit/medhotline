@@ -20,7 +20,7 @@ $covid_add_shortcode_ctf = get_field('add_shortcode_ctf');
             </div>
             <div class="hero-section">
                 <div class="row">
-                    <div class="col-lg-5 col-md-5 col-sm-12 col-12">
+                    <div class="col-lg-5 col-12">
                         <div class="content-page">
                             <?php
                             if($content_field){
@@ -38,7 +38,7 @@ $covid_add_shortcode_ctf = get_field('add_shortcode_ctf');
                             ?>
                         </div>
                     </div>
-                    <div class="col-lg-7 col-md-7 col-sm-12 col-12">
+                    <div class="col-lg-7 col-12">
                         <?php if($content_image){ echo '<img src="'.$content_image.'" alt="covid-image" class="border-16" />'; } ?>
                     </div>
                 </div>
@@ -207,7 +207,7 @@ $covid_add_shortcode_ctf = get_field('add_shortcode_ctf');
             </div>
             <!-- Travel Expense -->
             <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                <div class="col-lg-8 col-12">
                     <dl class="faqs">
                         <?php
                             $faqs = get_field('faq_covid');

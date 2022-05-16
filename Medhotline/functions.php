@@ -33,7 +33,7 @@ function enqueue_wp_child_theme()
 	wp_enqueue_style( 'custom-css', get_stylesheet_directory_uri() . '/assets/css/custom.css');
 
 	// Add responsive CSS.
-	// wp_enqueue_style( 'responsive', get_stylesheet_directory_uri() . '/assets/css/responsive.css');
+	wp_enqueue_style( 'responsive-css', get_stylesheet_directory_uri() . '/assets/css/responsive.css');
 
 	// Add custom JS.
 
@@ -185,7 +185,7 @@ function list_product_custom(){
             global $product;
             $price_html = $product->get_price_html();
             $new_price = preg_replace('/.00/', '', $price_html);
-            $url = get_home_url();
+            // $url = get_home_url();
             $annual_subscription = $product->get_attribute( 'Annual Subscription' );
             ?>
             <div class="col-lg-4 col-md-12 col-sm-12 col-12">
@@ -201,7 +201,7 @@ function list_product_custom(){
                         <h2 class="title"><a href="<?php echo $product->get_permalink(); ?>"><?php echo get_the_title(); ?></a></h2>
                         <div class="description"><?php echo get_the_content(); ?></div>
                         <div class="price"><?php echo $new_price; ?></div>
-                        <div class="btn-get-started add-to-cart"><a href="<?php echo $url; ?>/cart/?add-to-cart=<?php echo $product->get_id(); ?>">KAUFEN</a></div>
+                        <div class="btn-get-started add-to-cart"><a href="<?php echo $product->add_to_cart_url() ?>" value="<?php echo esc_attr( $product->get_id() ); ?>" class="ajax_add_to_cart add_to_cart_button add-cart" data-product_id="<?php echo get_the_ID(); ?>" data-product_sku="<?php echo esc_attr($product->get_sku()) ?>">KAUFEN</a></div>
                     </div>
                 </div>
             </div>
@@ -210,7 +210,7 @@ function list_product_custom(){
     }
     ?>
     <script type="text/javascript">
-		jQuery('.subscription-details').text("/year");
+		jQuery('.subscription-details').text("/Jahr");
 	</script>
 <?php 
 	wp_reset_postdata();	
@@ -287,7 +287,7 @@ function bbloomer_separate_registration_form() {
 
 // // define the woocommerce_register_form callback 
 function woocommerce_register_form_text() { 
-    echo '<div class="register-text">Indem ich fortfahre, bestätige ich, dass ich über 18 Jahre alt bin und den <a href="#">Nutzungsbedingungen</a> und <a href="#">Datenschutzbestimmungen</a> von MedHotline zustimme.</div>';
+    echo '<div class="register-text">Indem ich fortfahre, bestätige ich, dass ich über 18 Jahre alt bin und den <a href="https://www.telberia.com/projects/medhotline/allgemeine-geschaftsbedingungen/">Nutzungsbedingungen</a> von MedHotline zustimme.</div>';
 };    
 // add the action 
 add_action( 'woocommerce_register_form', 'woocommerce_register_form_text', 10, 0 ); 
@@ -354,3 +354,150 @@ function woo_cart_but_icon ( $items, $args ) {
     $items .=  do_shortcode('[woo_cart_but]'); // Adding the created Icon via the shortcode already created
     return $items;
 }
+
+/**
+ * Shortcode get product by category
+**/
+add_shortcode( 'list_product_by_category' , 'display_product_by_category' );
+function display_product_by_category($atts) {
+    ob_start();
+    global $product;
+    $atts = shortcode_atts( array(
+        'category' => '',
+        'number_post' => ''
+    ), $atts );
+    $categories  = explode(',' , $atts['category']);
+    $number_post  = $atts['number_post'];
+    $args = array(
+        'post_type'     => 'product',
+        'post_status'   => 'publish',
+        'order' => 'ASC',
+        'posts_per_page'=> $number_post,
+        'tax_query'     => array(
+            array(
+                'taxonomy'  => 'product_cat',
+                'field'     => 'tag_ID',
+                'terms'     => $categories
+            ) 
+        )
+    );
+    $query = new WP_Query( $args );
+    
+    if( ! $query->have_posts() ) {
+        return false;
+    }
+    if ( $query->have_posts() ) :
+        while ( $query->have_posts() ) : $query->the_post();
+            global $product;
+            $price_html = $product->get_price_html();
+            $new_price = preg_replace('/.00/', '', $price_html);
+            //$url = get_home_url();
+            $product_description = $product->description;
+            $product_short_description = $product->short_description;
+            ?>
+                <div class="product-infor">
+                    <span class="name"><?php the_title(); ?></span>
+                    <span class="price"><?php echo $new_price.$product_short_description; ?></span>
+                    <?php if($new_price){ ?>
+                        <span class="add-to-cart"><a href="<?php echo $product->add_to_cart_url() ?>" value="<?php echo esc_attr( $product->get_id() ); ?>" class="ajax_add_to_cart add_to_cart_button add-cart" data-product_id="<?php echo get_the_ID(); ?>" data-product_sku="<?php echo esc_attr($product->get_sku()) ?>"><span>KAUFEN</span></a></span>
+                    <?php } ?>
+                </div>
+                <?php
+                    if($product_description){
+                        echo '<div class="product-description">'.$product_description.'</div>';
+                    }
+                ?>
+            <?php
+        endwhile;
+    endif;
+    wp_reset_postdata();
+}
+
+/****** Popup add to cart success *******/
+// Wordpress Ajax: Get different cart items count
+add_action( 'wp_ajax_nopriv_checking_cart_items', 'checking_cart_items' );
+add_action( 'wp_ajax_checking_cart_items', 'checking_cart_items' );
+function checking_cart_items() {
+    if( isset($_POST['added']) ){
+        // For 2 different cart items
+        echo json_encode( sizeof( WC()->cart->get_cart() ) );
+    }
+    die(); // To avoid server error 500
+}
+// The Jquery script
+add_action( 'wp_footer', 'custom_popup_script' );
+function custom_popup_script() {
+    $add_success = get_stylesheet_directory_uri() . '/assets/images/added.svg';
+    $close = get_stylesheet_directory_uri() . '/assets/images/close.svg';
+    ?>
+    <!-- Modal -->
+    <div class="modal fade" id="added_product" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered border-0" role="document">
+            <div class="modal-content border-0">
+                <div class="modal-header p-0 border-0">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="<?php echo $close; ?>" /></span></button>
+                </div>
+                <div class="modal-body p-0">
+                    <img src="<?php echo $add_success; ?>" alt="add_success" />
+                    <p>Artikel wird dem Einkaufswagen hinzugefügt</p>
+                </div>
+                <div class="modal-footer p-0 border-0">
+                    <div class="btn-continue"><a href="#"><span>FORTSETZEN</span></a></div>
+                    <a href="#" class="btn-get-started">BESTELLEN</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    jQuery( function($){
+        // The Ajax function
+        $(document.body).on('added_to_cart', function() {
+            $.ajax({
+                type: 'POST',
+                url: wc_add_to_cart_params.ajax_url,
+                data: {
+                    'action': 'checking_cart_items',
+                    'added' : 'yes'
+                },
+                success: function(response){
+                    $('#added_product').modal('show')
+                    $('.added_to_cart').hide();
+                }
+            });
+        });
+    });
+    </script>
+    <?php
+}
+/************** Show pop-up message after successful email sending *****************/
+add_action( 'wp_footer', 'mycustom_wp_footer' );
+function mycustom_wp_footer() {
+    $add_success = get_stylesheet_directory_uri() . '/assets/images/added.svg';
+    $close = get_stylesheet_directory_uri() . '/assets/images/close.svg';
+?>
+<!-- Modal -->
+<div class="modal fade" id="email_sending" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered border-0" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header p-0 border-0">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="<?php echo $close; ?>" /></span></button>
+            </div>
+            <div class="modal-body p-0">
+                <img src="<?php echo $add_success; ?>" alt="add_success" />
+                <p>Vielen Dank, dass Sie sich für den Kurs angemeldet haben. Bitte überprüfen Sie Ihre E-Mail.</p>
+            </div>
+            <div class="modal-footer p-0 border-0">
+                <!-- <a href="#" class="btn-get-started">Schließen</a> -->
+                <button type="button" class="btn-get-started" data-dismiss="modal">Schließen</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript">
+        document.addEventListener( 'wpcf7mailsent', function( event ) {
+            if ( '851' == event.detail.contactFormId ) { // Change 123 to the ID of the form 
+                jQuery('#email_sending').modal('show'); //this is the bootstrap modal popup id
+            }
+        }, false );
+    </script>
+<?php  }

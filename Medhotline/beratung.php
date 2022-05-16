@@ -39,7 +39,7 @@ $beratung_med_help_image = get_field('med_help_image');
         ?>
         <div class="contact-form">
             <div class="row">
-                <div class="col-md-7 col-12">
+                <div class="col-lg-7 col-12">
                     <?php
                         if($beratung_title_form){
                             echo '<div class="title-main">'.$beratung_title_form.'</div>';

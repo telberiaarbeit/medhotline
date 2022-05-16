@@ -1,41 +1,203 @@
-@media only screen and (max-width: 736px) {
-    .container {
-        padding-left: 30px;
-        padding-right: 30px;
-    }
+@media only screen and (max-width: 991px) {
+	.kurse #header .cart-contents:before {
+	    left: 50%;
+	}
+	.kurse #header .text-center > a > img {
+		display: inline-block;
+	}
+	.kurse .remote-areas .content .border-16 {
+		max-width: calc(50% - 10px);
+	    float: left;
+	    margin-right: 20px;
+	}
+	.kurse .remote-areas .content p {
+	    width: calc(50% - 10px);
+	    float: left;
+	}
+	.kurse .remote-areas .content p:nth-child(2n + 1) {
+	    margin-right: 20px;
+	}
+	.kurse .remote-areas .content {
+		padding: 0;
+		max-width: none;
+	}
+	.kurse  .kindern .description-section .content {
+		padding-left: 0;
+	}
+	.kurse  .kindern .description-section .border-16 {
+		margin-top: 20%;
+	}
 
-    footer .information {
-        float: unset;
-        margin-top: 34px !important;
-    }
+	.kurse .diver .content .border-16 {
+		max-width: calc(50% - 10px);
+	    float: left;
+	    margin-right: 20px;
+	}
+	.kurse .diver .content p {
+	    width: calc(50% - 10px);
+	    float: left;
+	}
+	.kurse .diver .content p:nth-child(2n + 1) {
+	    margin-right: 20px;
+	}
+	.kurse .diver .content {
+		padding: 0;
+	}
+	.kurse .diver .description-section .content {
+	    max-width: none;
+	}
+	.covid .title-page {
+		font-size: 40px;
+	}
+	.covid .order-your-test .col-12:nth-child(n + 3) label {
+	    margin-top:  20px;
+	}
+	.covid .travel-expense .map-travel img {
+		width: 100%;
+	}
+	.hero-section img.border-16 {
+	    margin-top: 20px;
+	}
+	.video-visite .list-course .single-course {
+	    min-height: 0;
+	    height: 90%;
+	}
+	.video-visite .eyes-ears p {
+		max-width: none;
+	}
+	.video-visite .eyes-ears .content-right {
+		padding: 0;
+	}
+	.video-visite .title-page,
+	.beratung .title-page,
+	.reise .hero-section .title-page {
+	    font-size: 40px;
+	    line-height: 1.3;
+	}
+	#site-content.video-visite .list-course .row .col-lg-4:last-child .single-course {
+		margin: 0;
+		max-width: none;
+	}
+	#site-content.reise .our-partner .col-lg-4:last-child .single-partner {
+	     float: none;
+	}
+	#site-content.reise .our-partner .col-lg-4 .single-partner img {
+	    margin: 48px auto 0;
+	}
+	.reise .our-partner .sub-title h2,
+	.reise .safety .sub-title h2 {
+		font-size: 24px;
+	}
+	.kurse .title-underline {
+	    background-image: none;
+	    text-decoration: underline solid #3BFFAD 8px; 
+	}
+	.covid-19 .cart-contents-count {
+	    background: #009fe3;
+	}
 }
+@media only screen and (max-width: 575px) {
+	.kurse  .kindern .description-section .border-16 {
+		margin-top: 0;
+	}
 
-@media (max-width: 360px) {
-    .hero-mobile {
-        width: 100%;
-        height: 630px;
-    }
+	.kurse .border-16 {
+		margin-bottom: 15px;
+	}
+	.kurse .biker-image {
+		margin-top: 15px;
+	}
+	.kurse .title-underline {
+	    font-size: 5.5vw;
+	    line-height: 1.8;
+	}
+	.kurse .kurs-title-mobile .title-page {
+	    font-size: 7.5vw;
+	}
+	.kurse .remote-areas .content {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.kurse .remote-areas .content .border-16 {
+		order: 2;
+	}
+	.kurse .remote-areas .content p {
+	    order: 3;
+	}
+	.kurse .remote-areas .content p:nth-child(2) {
+	    order: 1;
+	}
+	.kurse .remote-areas .content .border-16,
+	.kurse .remote-areas .content p {
+		max-width: 100%;
+	    width: 100%;
+	    float: none;
+	}
+	.kurse .remote-areas .content p:nth-child(2n + 1) {
+	    margin-right: 0;
+	}
 
-    #site-content .hero {
-        display: none
-    }
 
-    .widget:first-child {
-        display: none
-    }
+	.kurse .diver .content {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.kurse .diver .content .border-16 {
+		order: 2;
+	}
+	.kurse .diver .content p {
+	    order: 3;
+	}
+	.kurse .diver .content p:nth-child(2) {
+	    order: 1;
+	}
+	.kurse .diver .content .border-16,
+	.kurse .diver .content p {
+		max-width: 100%;
+	    width: 100%;
+	    float: none;
+	}
+	.kurse .diver .content p:nth-child(2n + 1) {
+	    margin-right: 0;
+	}
 
-    .nav-user {
-        display: none
-    }
-
-    .nav-menu {
-        float: right;
-        margin-top: 5px;
-        margin-right: 5px;
-    }
-
-    .custom-logo {
-        float: left;
-    }
-
+	.covid .order-your-test .col-12 label {
+	    margin-top:  20px;
+	    line-height: 1.3;
+	}
+	.covid .title-page,
+	.reise .hero-section .title-page {
+	    font-size: 32px;
+	}
+	.covid .content-page h2,
+	.covid .register-form .sub-title h2 {
+	    font-size: 20px;
+	    line-height: 1.3;
+	}
+	.covid .sub-title h2 {
+	    font-size: 24px;
+	    line-height: 1.4;
+	}
+	.video-visite .title-page,
+	.reise .safety .sub-title h2 {
+	    font-size: 24px;
+	}
+	.beratung .title-page {
+	    font-size: 32px;
+	}
+	.reise .our-partner .sub-title h2 {
+		font-size: 20px;
+	}
+	#site-content .covid .register-form .sub-title h2 {
+	    margin-bottom: 4px;
+	}
+	#site-content .covid .register-form {
+	    padding: 124px 0 100px;
+	}
+	#site-content .order-your-test input[type="submit"] {
+	    max-width: 300px;
+	    margin: 24px auto;
+	    display: block;
+	    float: none;
+	}
 }

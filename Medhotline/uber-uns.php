@@ -69,7 +69,7 @@ $sub_group_contact_medhotline = get_field('sub_group_contact_medhotline');
                 <?php
                     if($sub_group_contact_medhotline){
                         foreach($sub_group_contact_medhotline as $sub_group){
-                            echo '<div class="col-lg-4 col-md-6 col-sm-6 col-12">';
+                            echo '<div class="sub_group col-lg-4 col-md-6 col-sm-6 col-12">';
                                 echo '<div class="single-course border-32">';
                                     if($sub_group['name_sub_contact']){
                                         echo '<p class="name">'.$sub_group['name_sub_contact'].'</p>'; 

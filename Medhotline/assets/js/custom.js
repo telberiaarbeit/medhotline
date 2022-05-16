@@ -11,13 +11,13 @@ jQuery(document).ready(function($){
         $(".menu-main").slideToggle();
     });
     // Add/Remove class scroll to bottom
-    $(window).scroll(function(){
-        if (jQuery(this).scrollTop() > 116) {
-           jQuery('#header').addClass('box-shadow');
-        } else {
-           jQuery('#header').removeClass('box-shadow');
-        }
-    });
+    // $(window).scroll(function(){
+    //     if (jQuery(this).scrollTop() > 116) {
+    //        jQuery('#header').addClass('box-shadow');
+    //     } else {
+    //        jQuery('#header').removeClass('box-shadow');
+    //     }
+    // });
     // JQuery function to allow only alphabets in textbox
     $( ".name input" ).keypress(function(e) {
         var key = e.keyCode;
@@ -25,6 +25,12 @@ jQuery(document).ready(function($){
             e.preventDefault();
         }
     });
+    // $( ".phone input" ).keypress(function(e) {
+    //     var key = e.keyCode;
+    //     if (key >= 97 && key <= 122) {
+    //         e.preventDefault();
+    //     }
+    // });
     // Show/Hide click button btn-get-started
     $('#headingOne .btn-get-started, #headingTwo .btn-get-started, #headingThree .btn-get-started, #headingFour .btn-get-started, #headingFive .btn-get-started').click(function(){
         $(this).hide();
@@ -44,4 +50,24 @@ jQuery(document).ready(function($){
     $('#collapseFive .close').click(function(){
         $('#headingFive .btn-get-started').show(); 
     });
+    $('#txtPhone').blur(function(e) {
+        if (validatePhone('txtPhone')) {
+            $('#spnPhoneStatus').html('Valid phone number');
+            $('#spnPhoneStatus').css('color', 'green');
+        }
+        else {
+            $('#spnPhoneStatus').html('Please enter a valid phone number');
+            $('#spnPhoneStatus').css('color', '#900');
+        }
+    });
+    function validatePhone(txtPhone) {
+        var a = document.getElementById(txtPhone).value;
+        var filter = /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/;
+        if (filter.test(a)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 });
