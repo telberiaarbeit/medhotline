@@ -15,9 +15,8 @@
 
 
  */
-
+if(!is_page_template('profile.php')) {
 ?>
-
 		<footer id="site-footer" class="header-footer-group">
 
 			<div class="container">
@@ -86,6 +85,7 @@
 			</div><!-- .container -->
 
 		</footer><!-- #site-footer -->
+		<?php } ?>
 
 		<?php wp_footer(); ?>
 

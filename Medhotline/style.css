@@ -577,7 +577,6 @@ button:focus {
     font-family: 'DM Sans';
     margin-left: -10px;
 }
-
 .product-package .single-product .content .add-to-cart {
     margin-top: 16px;
 }
@@ -984,8 +983,28 @@ button:focus {
     font-weight: normal;
     position: relative;
 }
-
-
+.date_long{
+    border: 1px solid #A5A5A5;
+    border-radius: 16px;
+    font-family: 'DM Sans Bold';
+    font-size: 16px;
+    line-height: 150%;
+    cursor: pointer;
+    padding: 10px;
+    min-width: 180px;
+    min-height: 48px;
+    margin-left: 5px;
+    /* -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+   background-image: url('assets/images/arrow-down.png'); */
+}
+.date_long option{
+    font-family: 'DM Sans';
+}
+.page-template-kurse .register .hide{
+    display: none;
+}
 /* -------------------- End Kurse ------------------------*/
 
 
@@ -1774,8 +1793,57 @@ div.nsl-container .nsl-container-buttons a {
 .sign-up .register-text a {
     color: #141196;
 }
-
-
+.sign-up .woocommerce-privacy-policy-text{
+    display: none;
+}
+/* Account Page */
+#pwgc-redeem-form *{
+    font-family: 'DM Sans';
+}
+#pwgc-redeem-gift-card-number{
+    display: inline-block;
+}
+#pwgc-redeem-button{
+    background: radial-gradient(100% 662.87% at 9% 0%, #141196 0%, #3BFFAD 100%);
+    font-family: 'DM Sans Bold' !important;
+    padding-top: 17px;
+    padding-bottom: 17px;
+}
+.woocommerce-account .woocommerce-MyAccount-content p{
+    margin: 0 0 10px 0;
+    display: block;
+    font-family: 'DM Sans';
+    font-size: 18px;
+}
+.woocommerce-account .woocommerce-EditAccountForm fieldset{
+    border: none;
+}
+.woocommerce-account .woocommerce-MyAccount-navigation li a,
+.woocommerce-account .woocommerce-EditAccountForm fieldset legend,
+.woocommerce-account .woocommerce-MyAccount-content p strong{
+    font-family: 'DM Sans Bold';
+}
+.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a,
+.woocommerce-account .woocommerce-MyAccount-content p a{
+    color: #141196;
+}
+.woocommerce-account .woocommerce-MyAccount-navigation li a:hover{
+    color: #141196;
+    text-decoration: none;
+}
+.woocommerce-account table.account-orders-table .button,
+.woocommerce-info a.button,
+.woocommerce-account .woocommerce-EditAccountForm button,
+.woocommerce-account .order-again a{
+    background: radial-gradient(100% 662.87% at 9% 0%, #141196 0%, #3BFFAD 100%);
+    font-family: 'DM Sans Bold';
+    color: #fff !important;
+}
+.woocommerce .col2-set .col-1, .woocommerce-page .col2-set .col-1,
+.woocommerce .col2-set .col-2, .woocommerce-page .col2-set .col-2{
+    max-width: 100%;
+    padding: 0;
+}
 /* faqs page */
 
 dt+dd,
@@ -2345,7 +2413,10 @@ footer .information li span+span {
 
 .contact-form .edit-form .action input:hover,
 .btn-get-started:hover,
-.order-your-test input[type="submit"]:hover {
+.order-your-test input[type="submit"]:hover,
+.woocommerce ul.products li.product a.button:hover,
+.single-product.woocommerce .single_add_to_cart_button:hover,
+.return-to-shop a.button:hover {
     box-shadow: 0px -4px 15px rgba(59, 255, 173, 0.15), 0px 4px 15px rgba(59, 255, 173, 0.25), 0px -4px 15px rgba(23, 39, 152, 0.25), 0px 4px 15px rgba(23, 39, 152, 0.25);
     text-decoration: none !important;
     color: #fff;
@@ -3123,7 +3194,9 @@ footer .information li span+span {
 .woocommerce-checkout .woocommerce-additional-fields label,
 .woocommerce-checkout .woocommerce-checkout-payment *,
 .woocommerce-checkout .checkout_coupon *,
-.woocommerce-cart table *{
+.woocommerce-cart table *,
+.woocommerce-checkout .select2-container .select2-selection--single .select2-selection__rendered,
+ul.products li.product .price, ul.products li.product .star-rating{
     font-family: 'DM Sans' !important;
 }
 .woocommerce-checkout form[name=checkout]{
@@ -3186,6 +3259,100 @@ footer .information li span+span {
 }
 .woocommerce-info{
     border-top: 2px solid #141196;
+}
+.wc_payment_method .payment_box fieldset{
+    background: transparent;
+}
+.woocommerce-checkout .woocommerce-checkout-payment .woocommerce-privacy-policy-text{
+    padding-bottom: 10px;
+}
+.woocommerce-checkout .woocommerce-checkout-payment .woocommerce-privacy-policy-link,
+.woocommerce-checkout .woocommerce-checkout-payment .woocommerce-terms-and-conditions-link{
+    font-size: 16px;
+    color: #141196;
+}
+.woocommerce-checkout .woocommerce-checkout-payment .woocommerce-terms-and-conditions-link:after{
+    display: none;
+}
+.woocommerce-checkout .woocommerce-checkout-payment .woocommerce-terms-and-conditions-wrapper{
+    border-top: 1px solid #eee;
+    margin: 20px 0 0 0;
+    padding-top: 20px;
+}
+/* Shop Page */
+.woocommerce ul.products li.product{
+    margin: 0 3.8% 2.992em 0 !important;
+}
+.woocommerce ul.products li.last, .woocommerce-page ul.products li.last {
+    margin-right: 0 !important;
+}
+.woocommerce ul.products li.product a.button,
+.return-to-shop a.button{
+    background: radial-gradient(100% 662.87% at 9% 0%, #141196 0%, #3BFFAD 100%);
+    font-family: 'DM Sans Bold';
+}
+/* Single product */
+.woocommerce .content-area{
+    padding-top: 170px;
+}
+.woocommerce-breadcrumb,
+.woocommerce-breadcrumb a{
+    font-size: 16px;
+}
+.woocommerce-breadcrumb{
+    margin-bottom: 15px;
+}
+.woocommerce-breadcrumb,
+.single-product.woocommerce .summary p.price{
+    font-family: 'DM Sans';
+}
+.single-product.woocommerce div.product .product_meta{ 
+    font-size: 18px;
+}
+.single-product.woocommerce form.cart input[type=number]{
+    padding-top: 11px;
+    padding-bottom: 11px;
+}
+.single-product.woocommerce .single_add_to_cart_button{
+    padding-top: 16px;
+    padding-bottom: 15px;
+    background: radial-gradient(100% 662.87% at 9% 0%, #141196 0%, #3BFFAD 100%);
+}
+body.woocommerce .woocommerce-tabs *{
+    font-family: 'DM Sans';
+    font-size: 16px;
+}
+body.woocommerce .woocommerce-tabs{
+    border: 1px solid #d9d9d9;
+}
+body.woocommerce .woocommerce-tabs ul.tabs{
+    background: #f4f4f4;
+}
+body.woocommerce .woocommerce-tabs ul.tabs li{
+    border-right: 1px solid #d9d9d9;
+    display: block !important;
+    float: left;
+}
+body.woocommerce .woocommerce-tabs ul.tabs li.active{
+    background: #fff;
+}
+body.woocommerce .woocommerce-tabs ul.tabs li a{
+    padding: 4px 22px;
+    color: #000;
+    display: block;
+    font-family: 'DM Sans Bold';
+}
+body.woocommerce .woocommerce-tabs ul.tabs li.active a{
+    box-shadow: 0 2px 0 #141196;
+}
+body.woocommerce .woocommerce-tabs .panel{
+    padding: 30px;
+}
+.woocommerce-tabs #tab-description p{
+    margin-bottom: 0;
+}
+.woocommerce-tabs #reviews .comment-form-author, .woocommerce-tabs #reviews .comment-form-email{
+    width: 100%;
 }
 /* moblie */
 .kurs-title-mobile {

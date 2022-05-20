@@ -25,7 +25,7 @@
                         echo '<p><strong>ERROR:</strong> You\'re out.</p>';
                     }
                     $args = array(
-                        // 'redirect' => site_url('/besuche'),
+                        'redirect' => site_url('/my-account'),
                         'label_username' => __( 'E-Mail' ),
                         'label_password' => __( 'Passwort' ),
                         'label_log_in'   => __( 'Zustimmen und weitermachen' ),

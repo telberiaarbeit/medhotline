@@ -8,7 +8,7 @@ $kurse_hero_title = get_field('title_page');
 $kurse_hero_description = get_field('description_hero');
 $training_class_image = get_field('training_class_image');
 $biker_image = get_field('biker_image');
-$kurse_register_form = get_field('register_form');
+$kurse_register_form = get_field('short_code_form');
 ?>
 <main id="site-content">
     <div class="kurse">
@@ -131,10 +131,22 @@ $kurse_register_form = get_field('register_form');
                     <div class="date-time">
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-12">
+                            <div class="infor date">
+                                <img class="d-inline" src="<?php echo $course_date_img ?>" alt="course_date_img"/>
+                                <span class="d-inline">Daten:</span>
+                                <select name="date_long" class="date_long">
+                                    <?php
+                                    if($course_date){
+                                        foreach($course_date as $date){
+                                            $date_from = $date['from'];
+                                            $date_to = $date['to'];
+                                            echo '<option value="'.$date_from.'-'.$date_to.'">'.$date_from.'-'.$date_to.'</option>';                                 
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                                 <?php
-                                if($course_date){
-                                echo '<div class="infor date"><img class="d-inline" src="'.$course_date_img.'" alt="course_date_img"/><span class="d-inline">Daten: <strong>'.$course_date.'</strong></span></div>';
-                                }
                                 if($course_duration){
                                 echo '<div class="infor duration"><img class="d-inline" src="'.$course_duration_img.'" alt="course_duration_img"/><span class="d-inline">Kursdauer: <strong>'.$course_duration.' h</strong></span></div>';
                                 }
@@ -237,10 +249,22 @@ $kurse_register_form = get_field('register_form');
                     <div class="date-time">
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-12">
+                                <div class="infor date">
+                                    <img class="d-inline" src="<?php echo $course_date_img ?>" alt="course_date_img"/>
+                                    <span class="d-inline">Daten:</span>
+                                    <select name="date_long" class="date_long">
+                                        <?php
+                                        if($course_date){
+                                            foreach($course_date as $date){
+                                                $date_from = $date['from'];
+                                                $date_to = $date['to'];
+                                                echo '<option value="'.$date_from.'-'.$date_to.'">'.$date_from.'-'.$date_to.'</option>';                                 
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
                                 <?php
-                                if($course_date){
-                                echo '<div class="infor date"><img class="d-inline" src="'.$course_date_img.'" alt="course_date_img"/><span class="d-inline">Daten: <strong>'.$course_date.'</strong></span></div>';
-                                }
                                 if($course_duration){
                                 echo '<div class="infor duration"><img class="d-inline" src="'.$course_duration_img.'" alt="course_duration_img"/><span class="d-inline">Kursdauer: <strong>'.$course_duration.' h</strong></span></div>';
                                 }
@@ -302,7 +326,7 @@ $kurse_register_form = get_field('register_form');
     // $grundkurs_16_register_bt_link = get_field('register_button_link_grundkurs_16');
     $grundkurs_16_register_bt_text = get_field('register_button_text_grundkurs_16');
     ?>
-    <div class="course-16 p-75">
+    <div id="course-16" class="course-16 p-75">
         <div class="container">
             <div class="title-section">
                 <div class="row">
@@ -363,10 +387,22 @@ $kurse_register_form = get_field('register_form');
                 <div class="date-time">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-12">
+                            <div class="infor date">
+                                <img class="d-inline" src="<?php echo $course_date_img ?>" alt="course_date_img"/>
+                                <span class="d-inline">Daten:</span>
+                                <select name="date_long" class="date_long">
+                                    <?php
+                                    if($grundkurs_16_date){
+                                        foreach($grundkurs_16_date as $date){
+                                            $date_from = $date['from'];
+                                            $date_to = $date['to'];
+                                            echo '<option value="'.$date_from.'-'.$date_to.'">'.$date_from.'-'.$date_to.'</option>';                                 
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                             <?php
-                            if($grundkurs_16_date){
-                            echo '<div class="infor date"><img class="d-inline" src="'.$course_date_img.'" alt="course_date_img"/><span class="d-inline">Daten: <strong>'.$grundkurs_16_date.'</strong></span></div>';
-                            }
                             if($grundkurs_16_duration){
                             echo '<div class="infor duration"><img class="d-inline" src="'.$course_duration_img.'" alt="course_duration_img"/><span class="d-inline">Kursdauer: <strong>'.$grundkurs_16_duration.' h</strong></span></div>';
                             }
@@ -463,10 +499,22 @@ $kurse_register_form = get_field('register_form');
             <div class="date-time">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-12">
+                        <div class="infor date">
+                            <img class="d-inline" src="<?php echo $course_date_img ?>" alt="course_date_img"/>
+                            <span class="d-inline">Daten:</span>
+                            <select name="date_long" class="date_long">
+                                <?php
+                                if($grundkurs_6_date){
+                                    foreach($grundkurs_6_date as $date){
+                                        $date_from = $date['from'];
+                                        $date_to = $date['to'];
+                                        echo '<option value="'.$date_from.'-'.$date_to.'">'.$date_from.'-'.$date_to.'</option>';                                 
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
                         <?php
-                        if($grundkurs_6_date){
-                        echo '<div class="infor date"><img class="d-inline" src="'.$course_date_img.'" alt="course_date_img"/><span class="d-inline">Daten: <strong>'.$grundkurs_6_date.'</strong></span></div>';
-                        }
                         if($grundkurs_6_duration){
                         echo '<div class="infor duration"><img class="d-inline" src="'.$course_duration_img.'" alt="course_duration_img"/><span class="d-inline">Kursdauer: <strong>'.$grundkurs_6_duration.' h</strong></span></div>';
                         }
@@ -524,7 +572,7 @@ $kurse_register_form = get_field('register_form');
     // $kindern_register_button_link = get_field('register_button_link_kindern');
     $kindern_register_button_text = get_field('register_button_text_kindern');
     ?>
-    <div class="course-16 kindern p-75">
+    <div id="kindern" class="course-16 kindern p-75">
         <div class="container">
             <div class="title-section">
                 <div class="row">
@@ -590,10 +638,22 @@ $kurse_register_form = get_field('register_form');
                 <div class="date-time">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-12">
+                            <div class="infor date">
+                                <img class="d-inline" src="<?php echo $course_date_img ?>" alt="course_date_img"/>
+                                <span class="d-inline">Daten:</span>
+                                <select name="date_long" class="date_long">
+                                    <?php
+                                    if($kindern_date){
+                                        foreach($kindern_date as $date){
+                                            $date_from = $date['from'];
+                                            $date_to = $date['to'];
+                                            echo '<option value="'.$date_from.'-'.$date_to.'">'.$date_from.'-'.$date_to.'</option>';                                 
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                             <?php
-                            if($kindern_date){
-                            echo '<div class="infor date"><img class="d-inline" src="'.$course_date_img.'" alt="course_date_img"/><span class="d-inline">Daten: <strong>'.$kindern_date.'</strong></span></div>';
-                            }
                             if($kindern_duration){
                             echo '<div class="infor duration"><img class="d-inline" src="'.$course_duration_img.'" alt="course_duration_img"/><span class="d-inline">Kursdauer: <strong>'.$kindern_duration.' h</strong></span></div>';
                             }
@@ -765,10 +825,22 @@ $kurse_register_form = get_field('register_form');
                 <div class="date-time">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-12">
+                            <div class="infor date">
+                                <img class="d-inline" src="<?php echo $course_date_img ?>" alt="course_date_img"/>
+                                <span class="d-inline">Daten:</span>
+                                <select name="date_long" class="date_long">
+                                    <?php
+                                    if($diver_date){
+                                        foreach($diver_date as $date){
+                                            $date_from = $date['from'];
+                                            $date_to = $date['to'];
+                                            echo '<option value="'.$date_from.'-'.$date_to.'">'.$date_from.'-'.$date_to.'</option>';                                 
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                             <?php
-                            if($diver_date){
-                            echo '<div class="infor date"><img class="d-inline" src="'.$course_date_img.'" alt="course_date_img"/><span class="d-inline">Daten: <strong>'.$diver_date.'</strong></span></div>';
-                            }
                             if($diver_duration){
                             echo '<div class="infor duration"><img class="d-inline" src="'.$course_duration_img.'" alt="course_duration_img"/><span class="d-inline">Kursdauer: <strong>'.$diver_duration.' h</strong></span></div>';
                             }
@@ -816,4 +888,60 @@ $kurse_register_form = get_field('register_form');
     </div>
     <!-- Diver -->
 </main>
+<script>
+    var current_date = jQuery('.date_long').val();
+    var check_date_not_val = jQuery('.register .date input').val();
+    if(check_date_not_val == ''){
+        jQuery('.remote-areas .register .date input').val(current_date);
+        jQuery('#course-16 .register .date input').val(current_date);
+        jQuery('.course-6 .register .date input').val(current_date);
+        jQuery('#kindern .register .date input').val(current_date);
+        jQuery('.diver .register .date input').val(current_date);
+    }
+    // remote-areas
+    jQuery(".remote-areas .date_long").on("change",function(){
+        var selected = jQuery(this).val();
+        jQuery(".remote-areas .date input[type='text']").val(selected);
+    });
+    var duration = jQuery('.remote-areas .duration span.d-inline strong').html();
+    jQuery('.remote-areas .course-duration input').val(duration);
+    var cost = jQuery('.remote-areas .cost span.d-inline strong').html();
+    jQuery('.remote-areas .costs input').val(cost);
+    // course-16
+    jQuery("#course-16 .date_long").on("change",function(){
+        var selected = jQuery(this).val();
+        jQuery("#course-16 .date input[type='text']").val(selected);
+    });
+    var duration_course_16 = jQuery('#course-16 .duration span.d-inline strong').html();
+    jQuery('#course-16 .course-duration input').val(duration_course_16);
+    var cost_course_16 = jQuery('#course-16 .cost span.d-inline strong').html();
+    jQuery('#course-16 .costs input').val(cost_course_16);
+    // course-6
+    jQuery(".course-6 .date_long").on("change",function(){
+        var selected = jQuery(this).val();
+        jQuery(".course-6 .date input[type='text']").val(selected);
+    });
+    var duration_course_6 = jQuery('.course-6 .duration span.d-inline strong').html();
+    jQuery('.course-6 .course-duration input').val(duration_course_6);
+    var cost_course_6 = jQuery('.course-6 .cost span.d-inline strong').html();
+    jQuery('.course-6 .costs input').val(cost_course_6);
+    // kindern
+    jQuery("#kindern .date_long").on("change",function(){
+        var selected = jQuery(this).val();
+        jQuery("#kindern .date input[type='text']").val(selected);
+    });
+    var duration_kindern = jQuery('#kindern .duration span.d-inline strong').html();
+    jQuery('#kindern .course-duration input').val(duration_kindern);
+    var cost_kindern = jQuery('#kindern .cost span.d-inline strong').html();
+    jQuery('#kindern .costs input').val(cost_kindern);
+    // diver
+    jQuery(".diver .date_long").on("change",function(){
+        var selected = jQuery(this).val();
+        jQuery(".diver .date input[type='text']").val(selected);
+    });
+    var duration_diver = jQuery('.diver .duration span.d-inline strong').html();
+    jQuery('.diver .course-duration input').val(duration_diver);
+    var cost_diver = jQuery('.diver .cost span.d-inline strong').html();
+    jQuery('.diver .costs input').val(cost_diver);
+</script>
 <?php get_footer('no-review'); ?>

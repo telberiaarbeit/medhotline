@@ -28,6 +28,10 @@ function enqueue_wp_child_theme()
 
 	wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/assets/js/bootstrap.min.js', array('jquery'), false, true);
 
+	wp_enqueue_style( 'select-2-css', get_stylesheet_directory_uri() . '/assets/css/select2.min.css');
+
+	wp_enqueue_script('select-2-js', get_stylesheet_directory_uri().'/assets/js/select2.min.js', array('jquery'), false, true);
+
 	// Add custom CSS.
 
 	wp_enqueue_style( 'custom-css', get_stylesheet_directory_uri() . '/assets/css/custom.css');
@@ -92,7 +96,7 @@ function my_login_redirect( $redirect_to, $request, $user ) {
 			// redirect them to the default place
 			return admin_url();
 		} else {
-			return home_url('/besuche');
+			return home_url('/my-account');
 		}
 	} else {
 		return $redirect_to;
@@ -115,15 +119,18 @@ function login_failed() {
     wp_redirect( $login_page . '?login=failed' );
     exit;
 }
-add_action( 'wp_login_failed', 'login_failed' );  
-function verify_username_password( $user, $username, $password ) {
-    $login_page  = home_url( '/sign-in/' );
-    if( $username == "" || $password == "" ) {
-        wp_redirect( $login_page . "?login=empty" );
-        exit;
-    }
-}
-add_filter( 'authenticate', 'verify_username_password', 1, 3);
+add_action( 'wp_login_failed', 'login_failed' ); 
+
+// function verify_username_password( $user, $username, $password ) {
+//     $login_page  = home_url( '/sign-in/' );
+//     if( $username == "" || $password == "" ) {
+//         wp_redirect( $login_page . "?login=empty" );
+//         exit;
+//     }
+// }
+// add_filter( 'authenticate', 'verify_username_password', 1, 3);
+
+
 
 add_action('after_setup_theme', 'remove_admin_bar');
 function remove_admin_bar() {
@@ -200,7 +207,13 @@ function list_product_custom(){
                         ?>
                         <h2 class="title"><a href="<?php echo $product->get_permalink(); ?>"><?php echo get_the_title(); ?></a></h2>
                         <div class="description"><?php echo get_the_content(); ?></div>
-                        <div class="price"><?php echo $new_price; ?></div>
+                        <div class="price"><?php echo $new_price; ?>
+                        <?php
+                            if($annual_subscription){
+                                echo '<span class="subscription-details">/Jahr</span>';
+                            }
+                        ?>
+                        </div>
                         <div class="btn-get-started add-to-cart"><a href="<?php echo $product->add_to_cart_url() ?>" value="<?php echo esc_attr( $product->get_id() ); ?>" class="ajax_add_to_cart add_to_cart_button add-cart" data-product_id="<?php echo get_the_ID(); ?>" data-product_sku="<?php echo esc_attr($product->get_sku()) ?>">KAUFEN</a></div>
                     </div>
                 </div>
@@ -209,9 +222,6 @@ function list_product_custom(){
         endwhile;
     }
     ?>
-    <script type="text/javascript">
-		jQuery('.subscription-details').text("/Jahr");
-	</script>
 <?php 
 	wp_reset_postdata();	
     $list_post = ob_get_contents();
@@ -284,6 +294,11 @@ function bbloomer_separate_registration_form() {
      
    return ob_get_clean();
 }
+/******************* Redirect after sign up success *****************/ 
+function custom_registration_redirect_after_registration() {
+    return home_url('/my-account');
+}
+add_action('woocommerce_registration_redirect', 'custom_registration_redirect_after_registration', 2);
 
 // // define the woocommerce_register_form callback 
 function woocommerce_register_form_text() { 
@@ -301,7 +316,7 @@ function woo_cart_but() {
 	ob_start();
  
         $cart_count = WC()->cart->cart_contents_count; // Set variable for cart item count
-        $cart_url = home_url('/cart');  // Set Cart URL
+        $cart_url = home_url('/warenkorb');  // Set Cart URL
   
         ?>
         <a class="menu-item cart-contents" href="<?php echo $cart_url; ?>" title="My Basket">
@@ -328,8 +343,7 @@ function woo_cart_but_count( $fragments ) {
     ob_start();
     
     $cart_count = WC()->cart->cart_contents_count;
-    $cart_url = home_url('/cart');
-    
+    $cart_url = home_url('/warenkorb');
     ?>
     <a class="cart-contents menu-item" href="<?php echo $cart_url; ?>" title="<?php _e( 'View your shopping cart' ); ?>">
 	<?php
@@ -391,13 +405,13 @@ function display_product_by_category($atts) {
             global $product;
             $price_html = $product->get_price_html();
             $new_price = preg_replace('/.00/', '', $price_html);
-            //$url = get_home_url();
             $product_description = $product->description;
-            $product_short_description = $product->short_description;
+            // $product_short_description = $product->short_description;
+            $product_extra_price_text = get_field('extra_price_text');
             ?>
                 <div class="product-infor">
                     <span class="name"><?php the_title(); ?></span>
-                    <span class="price"><?php echo $new_price.$product_short_description; ?></span>
+                    <span class="price"><?php echo $new_price.$product_extra_price_text; ?></span>
                     <?php if($new_price){ ?>
                         <span class="add-to-cart"><a href="<?php echo $product->add_to_cart_url() ?>" value="<?php echo esc_attr( $product->get_id() ); ?>" class="ajax_add_to_cart add_to_cart_button add-cart" data-product_id="<?php echo get_the_ID(); ?>" data-product_sku="<?php echo esc_attr($product->get_sku()) ?>"><span>KAUFEN</span></a></span>
                     <?php } ?>
@@ -427,6 +441,8 @@ function checking_cart_items() {
 // The Jquery script
 add_action( 'wp_footer', 'custom_popup_script' );
 function custom_popup_script() {
+    $checkout_url = home_url('/kasse');
+    $login_url = home_url('/sign-in');
     $add_success = get_stylesheet_directory_uri() . '/assets/images/added.svg';
     $close = get_stylesheet_directory_uri() . '/assets/images/close.svg';
     ?>
@@ -442,8 +458,14 @@ function custom_popup_script() {
                     <p>Artikel wird dem Einkaufswagen hinzugefügt</p>
                 </div>
                 <div class="modal-footer p-0 border-0">
-                    <div class="btn-continue"><a href="#"><span>FORTSETZEN</span></a></div>
-                    <a href="#" class="btn-get-started">BESTELLEN</a>
+                    <div class="btn-continue" data-dismiss="modal" aria-label="Close"><a href="javascript:void(0)"><span>FORTSETZEN</span></a></div>
+                    <?php
+                        if ( is_user_logged_in() ) {
+                            echo '<a href="'.$checkout_url.'" class="btn-get-started">BESTELLEN</a>';
+                        }else{
+                            echo '<a href="'.$login_url.'" class="btn-get-started">BESTELLEN</a>';
+                        }
+                    ?>
                 </div>
             </div>
         </div>
@@ -461,7 +483,7 @@ function custom_popup_script() {
                 },
                 success: function(response){
                     $('#added_product').modal('show')
-                    $('.added_to_cart').hide();
+                    // $('.added_to_cart').hide();
                 }
             });
         });
@@ -501,3 +523,29 @@ function mycustom_wp_footer() {
         }, false );
     </script>
 <?php  }
+
+/**************** Change text alert cart page **************/
+add_filter('gettext', 'change_update_cart_text', 10, 3);
+function change_update_cart_text($translation, $text, $domain) {
+    if ($domain == 'woocommerce') {
+        if ($text == 'Cart updated.') {
+            $translation = 'Warenkorb aktualisiert.';
+        }
+    }
+    return $translation;
+}
+require_once( get_stylesheet_directory() . '/inc/customize.php' );
+
+// add_action( 'woocommerce_email_before_order_table', 'bbloomer_add_content_specific_email', 20, 4 );
+  
+// function bbloomer_add_content_specific_email( $order, $sent_to_admin, $plain_text, $email ) {
+//    if ( $email->id == 'customer_processing_order' ) {
+//       echo '<h2 class="email-upsell-title">You can login on the App and make calls.</h2><p class="email-upsell-p">* If you do not have an account: We will create an account and send you a link to change your password, which you can then use to log in.</p>';
+//    }
+// }
+
+/**************** Change text place order in checkout page **************/
+add_filter( 'woocommerce_order_button_text', 'codemenschen_custom_button_text' );
+function codemenschen_custom_button_text( $button_text ) {
+	return 'Zahlungspflichtig bestellen';
+}

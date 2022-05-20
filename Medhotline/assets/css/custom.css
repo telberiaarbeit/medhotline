@@ -813,6 +813,7 @@
 }
 .sidebar .navbar .navbar-collapse ul li.current-menu-item,.sidebar .navbar .navbar-collapse ul li a:hover {
     background-color: #141196;
+    color: #FFFFFF;
 }
 .sidebar .navbar .navbar-collapse ul li.current-menu-item a{
     color: #FFFFFF;
@@ -845,7 +846,7 @@
     line-height: 150%;
     height: 69px;
 }
-.wrap-table thead tr {
+.wrap-table thead tr,.wrap-table tbody tr {
     border-bottom: 1px solid #EBEBEB;
 }
 .border-gradient {
@@ -949,6 +950,7 @@
 .page-template-bestellungen .inline-group {
     max-width: 97px;
     padding: .5rem;
+    
 }
   
 .page-template-bestellungen .inline-group .form-control {
@@ -964,6 +966,9 @@
     -webkit-appearance: none;
     margin: 0;
 }
+.wrap-form {
+    display: flex;
+}
 .wrap-form .form-group {
     flex-direction: column;
     max-width: 260px;
@@ -971,7 +976,7 @@
     display: flex;
 }
 .wrap-form .form-group:nth-child(1){
-    margin-right: 20px;
+    margin-right: 40px;
 }
 .wrap-form .form-group select,.wrap-form .form-group input {
     height: 56px;
@@ -979,6 +984,7 @@
     border: 1px solid #A5A5A5;
     border-radius: 16px;
     color: #4E4E4E;
+    font-size: 16px;
 }
 .wrap-form .form-group select {
     background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right;
@@ -986,12 +992,64 @@
     background-position-x: 226px;
 }
 .page-template-bestellungen .bottom-gradient {
-    background: unset;
     float: right;
     width: 100%;
-    padding: 9px 0;
+    max-width: 268px;
+    margin-top: 24px;
 }
 .page-template-bestellungen .bottom-gradient .border-gradient{
-    background: radial-gradient(189.46% 662.87% at 28.19% 0%, #141196 0%, #3BFFAD 100%);
+    background: unset;
     color: white;
+    padding: 16px 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 128%;
+    letter-spacing: 1px;
+}
+.btn-delete {
+    display: block;
+    text-align: right;
+}
+.btn-delete img {
+    display: inline-block;
+}
+.page-template-bestellungen .wrap-table{
+    margin-top: 33px;
+    margin-bottom: 16px;
+}
+.navbar-default {
+    background-color: unset;
+    border-color: #CFD6FF;
+}
+.navbar-collapse {
+    padding: 0;
+}
+.preisplan-sidebar ul {
+    width: 100%;
+}
+.page-template-bestellungen .nav-tabs {
+    border-bottom: none;
+    margin-top: 42px !important;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #000000;
+    cursor: default;
+    background-color: unset;
+    border: unset;
+    border-bottom: 2px solid #141196;
+    font-size: 18px;
+    line-height: 150%;
+    font-family: 'DM Sans Bold';
+}
+.page-template-bestellungen .nav-tabs li a {
+    padding: 0;
+}
+.page-template-bestellungen .nav-tabs li a:nth-child(1) {
+    margin-right: 53px;
+}
+.page-template-bestellungen table tbody tr:nth-child(even) {
+    background: #EDF2FF;
+}
+.page-template-bestellungen table tbody tr td.price {
+    font-family: 'DM Sans Bold';
 }
