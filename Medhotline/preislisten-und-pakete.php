@@ -176,8 +176,10 @@ $description_package = get_field('description_package');
 
                             <dt>
 
-                                <span class="name">Videoassistierte Visite</span>
-
+                                <?php
+                                    $cat_videoassistierte_visite = get_term_by('name', 'Videoassistierte Visite', 'product_cat');
+                                    echo '<span class="name">'.$cat_videoassistierte_visite->name.'</span>';
+                                ?>
                                 <span class="plusup"></span>
 
                             </dt>
@@ -198,8 +200,10 @@ $description_package = get_field('description_package');
 
                             <dt>
 
-                                <span class="name">Leistungen gegen Aufpreis</span>
-
+                                <?php
+                                    $cat_leistungen_gegen_aufpreis= get_term_by('name', 'Leistungen gegen Aufpreis', 'product_cat');
+                                    echo '<span class="name">'.$cat_leistungen_gegen_aufpreis->name.'</span>';
+                                ?>
                                 <span class="plusup"></span>
 
                             </dt>
@@ -220,8 +224,10 @@ $description_package = get_field('description_package');
 
                             <dt>
 
-                                <span class="name">COVID-19 Tests</span>
-
+                                <?php
+                                    $cat_covid_19_tests= get_term_by('name', 'COVID-19 Tests', 'product_cat');
+                                    echo '<span class="name">'.$cat_covid_19_tests->name.'</span>';
+                                ?>
                                 <span class="plusup"></span>
 
                             </dt>
@@ -238,72 +244,30 @@ $description_package = get_field('description_package');
 
                         </div>
 
-                        <!-- Not product -->
-
                         <div class="line">
 
                             <dt>
-
-                                <span class="name">Berechnung der Anfahrt</span>
-
+                                <?php
+                                    $category = get_term_by('name', 'Berechnung der Anfahrt', 'product_cat');
+                                    echo '<span class="name">'.$category->name.'</span>';
+                                ?>
                                 <span class="plusup"></span>
-
                             </dt>
 
                             <dd>
-
-                                <div class="product-infor">
-
-                                    <span class="name">Zone 1 - bis 5 km</span>
-
-                                    <span class="price">€ 35</span>
-
-                                </div>
-
-                                <div class="product-infor">
-
-                                    <span class="name">Zone 2 - bis 10 km</span>
-
-                                    <span class="price">€ 45</span>
-
-                                </div>
-
-                                <div class="product-infor">
-
-                                    <span class="name">Zone 3 - bis 15 km</span>
-
-                                    <span class="price">€ 55</span>
-
-                                </div>
-
-                                <div class="product-infor">
-
-                                    <span class="name">Zone 4 - bis 20 km</span>
-
-                                    <span class="price">€ 65</span>
-
-                                </div>
-
-                                <div class="product-infor">
-
-                                    <span class="name">Zone 5 - über 20 km</span>
-
-                                    <span class="price">€ 75</span>
-
-                                </div>
-
+                                <div class="product-description"><?php echo $category->description; ?></div>
                             </dd>
 
                         </div>
 
-                        <!-- End Not product -->
-
                         <div class="line">
 
                             <dt>
 
-                                <span class="name">Antikörper Tita Bestimmung</span>
-
+                                <?php
+                                    $cat_tita_bestimmung = get_term_by('name', 'Antikörper Tita Bestimmung', 'product_cat');
+                                    echo '<span class="name">'.$cat_tita_bestimmung->name.'</span>';
+                                ?>
                                 <span class="plusup"></span>
 
                             </dt>
@@ -323,9 +287,11 @@ $description_package = get_field('description_package');
                         <div class="line">
 
                             <dt>
-
-                                <span class="name">Weitere Angebote <small>(für Jahreskunden inkludiert)</small></span>
-
+                                
+                                <?php
+                                    $cat_weitere_angebote = get_term_by('name', 'Weitere Angebote der Medhotline', 'product_cat');
+                                    echo '<span class="name">'.$cat_weitere_angebote->name.'</span>';
+                                ?>
                                 <span class="plusup"></span>
 
                             </dt>
@@ -336,6 +302,77 @@ $description_package = get_field('description_package');
 
                                     echo do_shortcode('[list_product_by_category category="29" number_post="-1"]');
 
+                                ?>
+
+                            </dd>
+
+                        </div>
+
+                        <div class="line">
+
+                            <dt>
+
+                                <?php
+                                    $cat_impfungen = get_term_by('name', 'Impfungen', 'product_cat');
+                                    echo '<span class="name">'.$cat_impfungen->name.'</span>';
+                                ?>
+
+                                <span class="plusup"></span>
+
+                            </dt>
+
+                            <dd>
+
+                                <?php
+                                    echo do_shortcode('[list_product_by_category category="32" number_post="-1"]');
+                                    echo '<div class="cat-description">'.$cat_impfungen->description.'</div>';
+                                ?>
+
+                            </dd>
+
+                        </div>
+                        
+                        <div class="line">
+
+                            <dt>
+
+                                <?php
+                                    $cat_services_at_extra_charge = get_term_by('name', 'Leistungen wo der Preis auf Anfrage', 'product_cat');
+                                    echo '<span class="name">'.$cat_services_at_extra_charge->name.'<small>( Dauer ,Kosten Material ,Medikamente )</small></span>';
+                                ?>
+
+                                <span class="plusup"></span>
+
+                            </dt>
+
+                            <dd>
+
+                                <?php
+                                    echo do_shortcode('[list_product_by_category category="33" number_post="-1"]');
+                                    echo '<div class="cat-description">'.$cat_services_at_extra_charge->description.'</div>';
+                                ?>
+
+                            </dd>
+
+                        </div>
+
+                        <div class="line">
+
+                            <dt>
+
+                                <?php
+                                    $cat_telemedizinische_beratung = get_term_by('name', 'Telemedizinische Beratung', 'product_cat');
+                                    echo '<span class="name">'.$cat_telemedizinische_beratung->name.'<small>'.$cat_telemedizinische_beratung->description.'</small></span>';
+                                ?>
+
+                                <span class="plusup"></span>
+
+                            </dt>
+
+                            <dd>
+
+                                <?php
+                                    echo do_shortcode('[list_product_by_category category="35" number_post="-1"]');
                                 ?>
 
                             </dd>

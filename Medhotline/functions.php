@@ -74,7 +74,8 @@ if( function_exists('acf_add_options_page') ) {
 
 /* Custom page login */
 function filter_login_form_middle( $text, $args ) { 
-    $text = '<div class="privacy-text"><a href="#">Passwort vergessen?</a></div>';
+    $forgot_pw  = home_url( '/my-account/lost-password' );
+    $text = '<div class="privacy-text"><a href="'.$forgot_pw.'">Passwort vergessen?</a></div>';
     return $text; 
 }; 
 add_filter( 'login_form_middle', 'filter_login_form_middle', 10, 2 ); 
@@ -214,7 +215,9 @@ function list_product_custom(){
                             }
                         ?>
                         </div>
-                        <div class="btn-get-started add-to-cart"><a href="<?php echo $product->add_to_cart_url() ?>" value="<?php echo esc_attr( $product->get_id() ); ?>" class="ajax_add_to_cart add_to_cart_button add-cart" data-product_id="<?php echo get_the_ID(); ?>" data-product_sku="<?php echo esc_attr($product->get_sku()) ?>">KAUFEN</a></div>
+                        <!-- <div class="btn-get-started add-to-cart"> -->
+                            <a href="<?php echo $product->add_to_cart_url() ?>" value="<?php echo esc_attr( $product->get_id() ); ?>" class="ajax_add_to_cart add_to_cart_button add-cart btn-get-started add-to-cart" data-product_id="<?php echo get_the_ID(); ?>" data-product_sku="<?php echo esc_attr($product->get_sku()) ?>">KAUFEN</a>
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>
@@ -483,7 +486,7 @@ function custom_popup_script() {
                 },
                 success: function(response){
                     $('#added_product').modal('show')
-                    // $('.added_to_cart').hide();
+                    //$('.added_to_cart').hide();
                 }
             });
         });
@@ -548,4 +551,25 @@ require_once( get_stylesheet_directory() . '/inc/customize.php' );
 add_filter( 'woocommerce_order_button_text', 'codemenschen_custom_button_text' );
 function codemenschen_custom_button_text( $button_text ) {
 	return 'Zahlungspflichtig bestellen';
+}
+/**************** Change text Lost Password in page /my-account/lost-password/ **************/
+add_filter( 'gettext', 'change_lost_your_password' );
+function change_lost_your_password($text) {
+    if ($text == 'Lost password'){
+        $text = 'Passwort vergessen';
+    }
+    return $text;
+}
+
+/**************** Change text verify new password /my-account/lost-password/ (password-reset) **************/
+add_filter( 'woocommerce_get_script_data', 'strength_meter_settings', 20, 2 );
+function strength_meter_settings( $params, $handle  ) {
+
+	if( 'wc-password-strength-meter' === $handle ) {
+		$params[ 'i18n_password_error' ] = 'Sehr schwach - Bitte geben Sie ein stärkeres Passwort ein.';
+		$params[ 'i18n_password_hint' ] = 'Tipp: Das Passwort sollte mindestens zwölf Zeichen lang sein. Um es sicherer zu machen, verwenden Sie Groß- und Kleinbuchstaben, Zahlen und Symbole wie ! " ? $ % ^ & ).';
+	}
+	
+	return $params;
+
 }
