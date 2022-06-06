@@ -430,6 +430,52 @@ function display_product_by_category($atts) {
     wp_reset_postdata();
 }
 
+/**
+ * Shortcode get product by category: Medical Services
+**/
+add_shortcode( 'list_product_by_category_medical' , 'display_product_by_category_medical' );
+
+function display_product_by_category_medical() {
+    ob_start();
+    // $atts = shortcode_atts( array(
+    //     'category' => '',
+    //     'number_post' => ''
+    // ), $atts );
+    // $categories  = explode(',' , $atts['category']);
+    // $number_post  = $atts['number_post'];
+    $args = array(
+        'post_type'     => 'product',
+        'post_status'   => 'publish',
+        'order' => 'ASC',
+        'posts_per_page'=> -1,
+        'tax_query'     => array(
+            array(
+                'taxonomy'  => 'product_cat',
+                'field'     => 'tag_ID',
+                'terms'     => 30
+            ) 
+        )
+    );
+
+    $query = new WP_Query( $args );
+    // var_dump($query);
+    if( ! $query->have_posts() ) {
+        return false;
+    }
+    if ( $query->have_posts() ) :
+        echo '<select name="category_medical" id="category_medical">';
+            echo '<option selected>Wählen Sie Ihren Test</option>';
+        while ( $query->have_posts() ) : $query->the_post();
+            global $product;
+            ?>
+                <option value="<?php echo esc_attr( $product->get_id() ); ?>" id="<?php echo esc_attr( $product->get_id() ); ?>" data-product_id="<?php echo get_the_ID(); ?>" data-product_sku="<?php echo esc_attr($product->get_sku()) ?>"><?php the_title(); ?></option>
+            <?php
+        endwhile;
+        echo '</select>';
+        // echo '<a href="?add-to-cart=" value="" class="ajax_add_to_cart add_to_cart_button add-cart btn-get-started add-to-cart" data-product_id="" data-product_sku="">BESTELLEN</a>';
+    endif;
+    wp_reset_postdata();
+}
 /****** Popup add to cart success *******/
 // Wordpress Ajax: Get different cart items count
 add_action( 'wp_ajax_nopriv_checking_cart_items', 'checking_cart_items' );
@@ -572,4 +618,81 @@ function strength_meter_settings( $params, $handle  ) {
 	
 	return $params;
 
+}
+/* Ajax load attribute location of product name */
+add_action('wp_ajax_select_product_name', 'select_product_name');
+add_action('wp_ajax_nopriv_select_product_name', 'select_product_name'); 
+function select_product_name () {
+    $id_product = $_POST['id'];
+    $data = [];
+    if(isset($id_product) && (!empty($id_product))){
+        $product = wc_get_product($id_product);
+        if ($product->is_type( 'variable' )) {
+            
+            $avail_vars = $product->get_available_variations();
+
+            $list_option = [];
+            $list_ids = [];
+            $count_id = 0;
+            foreach($avail_vars as $value){
+                $attr = $value['attributes'];
+                $attr_location = $attr['attribute_pa_choose-your-location'];
+
+                $id_option = $value['variation_id'];
+                
+                if(!in_array(ucwords($attr_location), $list_option)) {
+                    $list_option[] = ucwords($attr_location);
+                } 
+                $list_ids[ucwords($attr_location)] .= $id_option.',';
+            }
+
+            $data['option'] = $list_option;
+            $data['list_ids'] = $list_ids;
+
+            $data = [
+                'msg' => 'Done',
+                'code' => 200,
+                'data' => $data
+            ];
+
+        }else{
+            $data = [
+                'msg' => 'Cannot have product',
+                'code' => 200,
+                'data' => '<option>Wählen Sie Ihren Standort</option>',
+            ];
+        }
+    } else {
+        $data = [
+            'msg' => 'Not have product',
+            'code' => 500,
+            'data' => ''
+        ];
+    }
+    echo json_encode($data);
+    die;
+}
+/* Ajax click location of product load attribute person */
+add_action('wp_ajax_select_location_product', 'select_location_product');
+add_action('wp_ajax_nopriv_select_location_product', 'select_location_product');
+function select_location_product(){
+    // $current_id = (isset($_POST['product_id'])) ? $_POST['product_id'] : '';
+    $location_id = (isset($_POST['location_id'])) ? $_POST['location_id'] : '';
+    if(!empty($location_id)){
+        $list_ids = explode(',', $location_id);
+        $string_id = '<option>Anzahl der Personen</option>';
+        if($list_ids) {
+            foreach($list_ids as $id) {
+                if(!empty($id)) {
+                    $product = wc_get_product($id);
+                    $person = $product->get_attribute( 'pa_number-of-people' );
+                    $string_id .= '<option value="'.$id.'">'.$person.'</option>'; 
+                }
+            }
+        }
+        echo $string_id;        
+    }else{
+        echo '<option >Anzahl der Personen</option>';
+    }
+    die;
 }

@@ -447,8 +447,7 @@ button:focus {
     max-width: 560px;
 }
 
-.home-faq .faqs .line dd p,
-.home-faq .faqs .line dd p a {
+.home-faq .faqs .line dd p {
     color: #1B1B1B;
 }
 
@@ -1339,8 +1338,13 @@ button:focus {
     -webkit-appearance: none;
     background-position-x: 226px;
 }
-
-
+.order-your-test .btn-get-started{
+    max-width: 255px;
+}
+.order-your-test .disabled{
+    pointer-events: none;
+    opacity: 0.2;
+}
 /* -------------------- End Covid 19 Page --------------------*/
 
 
@@ -1796,14 +1800,17 @@ div.nsl-container .nsl-container-buttons a {
     padding: 16px 0;
 }
 
-.sign-up .register-text a {
+.sign-up .register-text a,
+#customer_login .register a {
     color: #141196;
 }
-.sign-up .woocommerce-privacy-policy-text{
+.sign-up .woocommerce-privacy-policy-text,
+#customer_login .register .woocommerce-privacy-policy-text{
     display: none;
 }
 /* Account Page */
-#pwgc-redeem-form *{
+#pwgc-redeem-form *,
+#customer_login .register *{
     font-family: 'DM Sans';
 }
 #pwgc-redeem-gift-card-number{
@@ -1849,6 +1856,20 @@ div.nsl-container .nsl-container-buttons a {
 .woocommerce .col2-set .col-2, .woocommerce-page .col2-set .col-2{
     max-width: 100%;
     padding: 0;
+}
+#customer_login .register,
+#customer_login .register a{
+    font-size: 16px;
+}
+#customer_login .register .register-text{
+    padding: 10px 0;
+}
+#customer_login .u-column1 > h2,
+#customer_login .u-column2 > h2{
+    margin-top: 0;
+}
+.woocommerce-account .header-footer-group{
+    padding: 40px 0;
 }
 /* Lost Password Page */
 .woocommerce-lost-password .nav-phone,
@@ -2004,7 +2025,8 @@ dd+dt {
     height: 100%;
 }
 .price-service .faqs .product-infor .add-to-cart a.added_to_cart.wc-forward,
-.product-package .single-product .content a.added_to_cart.wc-forward{
+.product-package .single-product .content a.added_to_cart.wc-forward,
+.order-your-test .add-cart-custom a.added_to_cart.wc-forward{
     display: none;
 }
 .price-service .faqs .product-infor .add-to-cart a span{
@@ -3260,12 +3282,16 @@ footer .information li span+span {
 /* Cart Page */
 .woocommerce-cart .checkout-button,
 #place_order,
-.woocommerce-checkout button[name=apply_coupon]{
+.woocommerce-checkout button[name=apply_coupon],
+.woocommerce-form.woocommerce-form-login.login .woocommerce-form-login__submit,
+.woocommerce-form.woocommerce-form-register.register .woocommerce-form-register__submit{
     background: radial-gradient(100% 662.87% at 9% 0%, #141196 0%, #3BFFAD 100%);
 }
 .woocommerce-cart .checkout-button:hover,
 #place_order:hover,
-.woocommerce-checkout button[name=apply_coupon]:hover{
+.woocommerce-checkout button[name=apply_coupon]:hover,
+.woocommerce-form.woocommerce-form-login.login .woocommerce-form-login__submit:hover,
+.woocommerce-form.woocommerce-form-register.register .woocommerce-form-register__submit:hover{
     box-shadow: 0px -4px 15px rgb(59 255 173 / 15%), 0px 4px 15px rgb(59 255 173 / 25%), 0px -4px 15px rgb(23 39 152 / 25%), 0px 4px 15px rgb(23 39 152 / 25%);
     text-decoration: none !important;
     color: #fff;
@@ -3295,7 +3321,8 @@ footer .information li span+span {
 .woocommerce-checkout .checkout_coupon *,
 .woocommerce-cart table *,
 .woocommerce-checkout .select2-container .select2-selection--single .select2-selection__rendered,
-ul.products li.product .price, ul.products li.product .star-rating{
+ul.products li.product .price, ul.products li.product .star-rating,
+.woocommerce-form.woocommerce-form-login.login *{
     font-family: 'DM Sans' !important;
 }
 .woocommerce-checkout form[name=checkout]{
@@ -3346,7 +3373,9 @@ ul.products li.product .price, ul.products li.product .star-rating{
 .woocommerce-cart .checkout-button,
 .woocommerce-cart .cart_totals table.shop_table tr.order-total td strong span bdi,
 .woocommerce-checkout button[name=apply_coupon],
-.woocommerce-checkout header .entry-title{
+.woocommerce-checkout header .entry-title,
+.woocommerce-form.woocommerce-form-login.login .woocommerce-form-login__submit,
+.woocommerce-form.woocommerce-form-register.register .woocommerce-form-register__submit{
     font-family: 'DM Sans Bold' !important;
 }
 #order_review_heading,
@@ -3377,6 +3406,15 @@ ul.products li.product .price, ul.products li.product .star-rating{
     border-top: 1px solid #eee;
     margin: 20px 0 0 0;
     padding-top: 20px;
+}
+.woocommerce-form.woocommerce-form-login.login .form-row,
+.woocommerce-form.woocommerce-form-register.register .form-row{
+    display: block;
+    margin: 0;
+}
+.woocommerce-form.woocommerce-form-login.login .woocommerce-form-login__rememberme,
+.woocommerce-form.woocommerce-form-login.login .woocommerce-form-login__submit{
+    margin-bottom: 10px;
 }
 /* Shop Page */
 .woocommerce ul.products li.product{

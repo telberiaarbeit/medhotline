@@ -8,7 +8,7 @@ get_header();
 $content_field = get_field('content_field');
 $content_image = get_field('content_image');
 $covid_title_form = get_field('title_form');
-$covid_add_shortcode_ctf = get_field('add_shortcode_ctf');
+// $covid_add_shortcode_ctf = get_field('add_shortcode_ctf');
 ?>
 <main id="site-content">
 	<div class="covid">
@@ -51,10 +51,65 @@ $covid_add_shortcode_ctf = get_field('add_shortcode_ctf');
                             if($covid_title_form){
                                 echo '<div class="sub-title"><h2>'.$covid_title_form.'</h2></div>';
                             }
-                            if($covid_add_shortcode_ctf){
-                                echo $covid_add_shortcode_ctf;
-                            }
                         ?>
+                        <div class="order-your-test">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                                    <label>Test auswählen</label>
+                                    <?php
+                                        $args = array(
+                                            'post_type'     => 'product',
+                                            'post_status'   => 'publish',
+                                            'order' => 'ASC',
+                                            'posts_per_page'=> -1,
+                                            'tax_query'     => array(
+                                                array(
+                                                    'taxonomy'  => 'product_cat',
+                                                    'field'     => 'tag_ID',
+                                                    'terms'     => 30
+                                                ) 
+                                            )
+                                        );
+                                        $query = new WP_Query( $args );
+                                        if ( $query->have_posts() ) :
+                                            echo '<select name="product_name" id="product_name">';
+                                                echo '<option selected>Wählen Sie Ihren Test</option>';
+                                            while ( $query->have_posts() ) : $query->the_post();
+                                                global $product;
+                                                ?>
+                                                    <option value="<?php echo esc_attr( $product->get_id() ); ?>" id="<?php echo esc_attr( $product->get_id() ); ?>" data-product_id="<?php echo get_the_ID(); ?>" data-product_sku="<?php echo esc_attr($product->get_sku()) ?>"><?php the_title(); ?></option>
+                                                <?php
+                                            endwhile;
+                                            echo '</select>';
+                                        endif;
+                                        wp_reset_postdata();
+                                    ?>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                                    <label>Datum auswählen</label>
+                                    <span class="date-custom">
+                                        <input type="date" name="date-custom">
+                                    </span>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                                    <label>Wählen Sie Ihren Standort</label>
+                                    <select name="attr_location" id="attr_location">
+                                        <option selected>Wählen Sie Ihren Standort</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                                    <label>Anzahl der Personen</label>
+                                    <select name="attr_person" id="attr_person">
+                                        <option selected>Anzahl der Personen</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-right add-cart-custom">
+                                    <a class="ajax_add_to_cart add_to_cart_button add-cart btn-get-started disabled" href="javascript:void(0)">In den Warenkorb</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -229,4 +284,89 @@ $covid_add_shortcode_ctf = get_field('add_shortcode_ctf');
         </div>
     </div>
 </main><!-- #site-content -->
+<script>
+    // jQuery("#category_medical").change(function(){
+    //     change_link();
+    // });
+    // function change_link(){
+    //     var val = jQuery("#category_medical option:selected").val();
+    //     jQuery(".order-your-test a").each(function(){
+    //         var nhref = "";
+    //         var href = jQuery(this).attr("href").split("=");
+    //         for(var i=0;i<href.length-1;i++){
+    //             nhref += href[i]+"=";
+    //         }
+    //         if(val != 'Wählen Sie Ihren Test'){
+    //             nhref += val;
+    //         }
+    //         jQuery(this).attr("href",nhref);
+    //     });
+    // }
+    jQuery(document).ready(function () {
+        // Select product name
+        jQuery('#product_name').change(function () {
+            let id_product = jQuery(this).val();
+            if(id_product !='Wählen Sie Ihren Test'){
+                jQuery.ajax({
+                    type: "POST",
+                    url: '<?php echo admin_url('admin-ajax.php');?>',
+                    data: {
+                        action: 'select_product_name',
+                        id: id_product
+                    },
+                    success: function(response){
+                        var data = JSON.parse(response);
+                        if(data.code == 200) {
+                            var list_ids = data.data.list_ids;
+                            jQuery.each( data.data.option, function( key, value ) {
+                                jQuery('#attr_location').append('<option value="'+list_ids[value]+'">'+value+'</option>')
+                            }); 
+                        } else {
+                            jQuery('#attr_location').html('<option>Wählen Sie Ihren Standort</option>');
+                            jQuery('#attr_person').html('<option>Anzahl der Personen</option>');
+                        }
+                        
+                        //jQuery('#attr_location').html(response);
+                    }
+                });
+            }else{
+                jQuery('#attr_location').html('<option>Wählen Sie Ihren Standort</option>');
+                jQuery('#attr_person').html('<option>Anzahl der Personen</option>');
+            }
+            
+        });
+        // Select location of product
+        jQuery('#attr_location').change(function () {
+            let current_id = jQuery('#product_name').val();
+            var location = jQuery(this).find('option:selected'); 
+            var location_id = location.attr("value");
+            console.log(location_id);
+            
+            jQuery.ajax({
+                type: "POST",
+                url: '<?php echo admin_url('admin-ajax.php');?>',
+                data: {
+                    action: 'select_location_product',
+                    product_id: current_id,
+                    location_id: location_id
+                },
+                success: function(response){
+                    jQuery('.add-cart-custom').html('<a class="ajax_add_to_cart add_to_cart_button add-cart btn-get-started disabled" href="javascript:void(0)">In den Warenkorb</a>');
+                    jQuery('#attr_person').html(response);
+                }
+            });
+        });
+
+        jQuery('#attr_person').change(function () { 
+            let current_id = jQuery('#product_name').val();
+            var people = jQuery(this).find('option:selected').attr("value");
+            if(people == undefined){
+                jQuery('.add-cart-custom').html('<a class="ajax_add_to_cart add_to_cart_button add-cart btn-get-started disabled" href="javascript:void(0)">In den Warenkorb</a>');
+            }else{
+                // jQuery('.add-cart-custom').html('<a class="ajax_add_to_cart add_to_cart_button add-cart btn-get-started" data-product_id="'+people+'" href="?add-to-cart='+current_id+'&variation_id='+people+'&attribute_pa_choose-your-location=feldbach&attribute_pa_number-of-people=4-person">In den Warenkorb</a>');
+                jQuery('.add-cart-custom').html('<a class="ajax_add_to_cart add_to_cart_button add-cart btn-get-started" data-product_id="'+people+'" href="?add-to-cart='+current_id+'&variation_id='+people+'">In den Warenkorb</a>');
+            }
+        });
+    });
+</script>
 <?php get_footer('no-review'); ?>
