@@ -696,3 +696,76 @@ function select_location_product(){
     }
     die;
 }
+
+function sess_start() {
+    if (!session_id())
+    session_start();
+}
+add_action('init','sess_start');
+
+add_action('wp_ajax_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
+add_action('wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
+function woocommerce_ajax_add_to_cart() {
+    $product_id = apply_filters('woocommerce_add_to_cart_product_id', absint($_POST['product_id']));
+    $variation_id = absint($_POST['variation_id']);
+    
+    $quantity = empty($_POST['quantity']) ? 1 : wc_stock_amount($_POST['quantity']);
+    $date_product = $_POST['date_product'];
+
+    $passed_validation = apply_filters('woocommerce_add_to_cart_validation', true, $product_id, $quantity);
+    $product_status = get_post_status($product_id);
+
+    if ($passed_validation && 'publish' === $product_status && WC()->cart->add_to_cart($product_id, $quantity, $variation_id, array('date_product' => $date_product)) ) {
+        do_action('woocommerce_ajax_added_to_cart', $product_id);
+        if ('yes' === get_option('woocommerce_cart_redirect_after_add')) {
+            wc_add_to_cart_message(array($product_id => $quantity), true);
+        }
+
+        $_SESSION[$product_id.'_meta_date'] = $date_product;
+
+        WC_AJAX :: get_refreshed_fragments();
+    }else{
+        $data = array(
+            'error' => true,
+            'product_url' => apply_filters('woocommerce_cart_redirect_after_error', get_permalink($product_id), $product_id));
+
+        echo wp_send_json($data);
+    }
+    die;
+}
+
+// Display custom cart item meta data (in cart and checkout)
+add_filter( 'woocommerce_get_item_data', 'display_cart_item_custom_meta_data', 10, 2 );
+function display_cart_item_custom_meta_data( $item_data, $cart_item ) {
+    $product_id = $cart_item['data']->get_parent_id();
+    $date_product = $_SESSION[$product_id.'_meta_date'];
+    if($date_product) {
+        $item_data['meta_date'] = array(
+            'key'       => 'Date',
+            'value'     => $date_product
+        );
+    }
+    // unset($_SESSION[$product_id.'_meta_date']);
+    return $item_data;
+}
+
+function add_date_to_cart_item( $cart_item_data, $product_id, $variation_id ) {
+    $date_product = $_SESSION[$product_id.'_meta_date'];
+	if ( empty( $date_product ) ) {
+		return $cart_item_data;
+	}
+
+	$cart_item_data['meta_date'] = $date_product;
+	return $cart_item_data;
+}
+
+add_filter( 'woocommerce_add_cart_item_data', 'add_date_to_cart_item', 10, 3 );
+
+// Save cart item custom meta as order item meta data and display it everywhere on orders and email notifications.
+add_action( 'woocommerce_checkout_create_order_line_item', 'save_cart_item_custom_meta_as_order_item_meta', 10, 4 );
+function save_cart_item_custom_meta_as_order_item_meta( $item, $cart_item_key, $values, $order ) {
+    $meta_key = 'Date';
+    if ( isset($values['meta_date']) && isset($values['meta_date']) ) {
+        $item->update_meta_data( $meta_key, $values['meta_date'] );
+    }
+}

@@ -305,7 +305,7 @@ $covid_title_form = get_field('title_form');
     jQuery(document).ready(function () {
         // Select product name
         jQuery('#product_name').change(function () {
-            let id_product = jQuery(this).val();
+            var id_product = jQuery(this).val();
             if(id_product !='Wählen Sie Ihren Test'){
                 jQuery.ajax({
                     type: "POST",
@@ -313,6 +313,10 @@ $covid_title_form = get_field('title_form');
                     data: {
                         action: 'select_product_name',
                         id: id_product
+                    },
+                    beforeSend: function(){
+                        jQuery('#attr_location').html('<option>Wählen Sie Ihren Standort</option>');
+                        jQuery('#attr_person').html('<option>Anzahl der Personen</option>');
                     },
                     success: function(response){
                         var data = JSON.parse(response);
@@ -325,8 +329,6 @@ $covid_title_form = get_field('title_form');
                             jQuery('#attr_location').html('<option>Wählen Sie Ihren Standort</option>');
                             jQuery('#attr_person').html('<option>Anzahl der Personen</option>');
                         }
-                        
-                        //jQuery('#attr_location').html(response);
                     }
                 });
             }else{
@@ -337,10 +339,9 @@ $covid_title_form = get_field('title_form');
         });
         // Select location of product
         jQuery('#attr_location').change(function () {
-            let current_id = jQuery('#product_name').val();
+            var current_id = jQuery('#product_name').val();
             var location = jQuery(this).find('option:selected'); 
             var location_id = location.attr("value");
-            console.log(location_id);
             
             jQuery.ajax({
                 type: "POST",
@@ -358,15 +359,55 @@ $covid_title_form = get_field('title_form');
         });
 
         jQuery('#attr_person').change(function () { 
-            let current_id = jQuery('#product_name').val();
+            var current_id = jQuery('#product_name').val();
             var people = jQuery(this).find('option:selected').attr("value");
             if(people == undefined){
                 jQuery('.add-cart-custom').html('<a class="ajax_add_to_cart add_to_cart_button add-cart btn-get-started disabled" href="javascript:void(0)">In den Warenkorb</a>');
             }else{
-                // jQuery('.add-cart-custom').html('<a class="ajax_add_to_cart add_to_cart_button add-cart btn-get-started" data-product_id="'+people+'" href="?add-to-cart='+current_id+'&variation_id='+people+'&attribute_pa_choose-your-location=feldbach&attribute_pa_number-of-people=4-person">In den Warenkorb</a>');
                 jQuery('.add-cart-custom').html('<a class="ajax_add_to_cart add_to_cart_button add-cart btn-get-started" data-product_id="'+people+'" href="?add-to-cart='+current_id+'&variation_id='+people+'">In den Warenkorb</a>');
+                jQuery('.add-cart-custom').html('<a class="add-cart-new btn-get-started">In den Warenkorb</a>');
+                
             }
         });
+        // jQuery(document).on('change', '.date-custom input', function() {
+        //     var date = jQuery(this).val();
+        //     console.log(date);
+        
+            /* Add cart custom */
+            jQuery(document).on('click', '.add-cart-new', function (e) {
+                e.preventDefault();
+                var product_id = jQuery('#product_name').val();
+                var variation_id = jQuery('#attr_person').find('option:selected').attr("value");
+                var date_product = jQuery('.date-custom input').val();
+                console.log(date_product);
+                var data = {
+                    action: 'woocommerce_ajax_add_to_cart',
+                    product_id: product_id,
+                    variation_id: variation_id,
+                    date_product: date_product
+                };
+                jQuery(document.body).trigger('adding_to_cart', [data]);
+                jQuery.ajax({
+                    type: "POST",
+                    url: wc_add_to_cart_params.ajax_url,
+                    data: data,
+                    beforeSend: function (response) {
+                        //data.removeClass('added').addClass('loading');
+                    },
+                    complete: function (response) {
+                        //data.addClass('added').removeClass('loading');
+                    },
+                    success: function(response){
+                        if (response.error && response.product_url) {
+                            window.location = response.product_url;
+                            return;
+                        } else {
+                            jQuery(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash]);
+                        }
+                    },
+                });
+            }); 
+        // });
     });
 </script>
 <?php get_footer('no-review'); ?>

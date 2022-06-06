@@ -1340,6 +1340,12 @@ button:focus {
 }
 .order-your-test .btn-get-started{
     max-width: 255px;
+    color: #fff;
+}
+.order-your-test .btn-get-started:hover{
+    box-shadow: 0px -4px 15px rgb(59 255 173 / 15%), 0px 4px 15px rgb(59 255 173 / 25%), 0px -4px 15px rgb(23 39 152 / 25%), 0px 4px 15px rgb(23 39 152 / 25%);
+    text-decoration: none !important;
+    color: #fff;
 }
 .order-your-test .disabled{
     pointer-events: none;
