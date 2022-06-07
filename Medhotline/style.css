@@ -3328,7 +3328,9 @@ footer .information li span+span {
 .woocommerce-cart table *,
 .woocommerce-checkout .select2-container .select2-selection--single .select2-selection__rendered,
 ul.products li.product .price, ul.products li.product .star-rating,
-.woocommerce-form.woocommerce-form-login.login *{
+.woocommerce-form.woocommerce-form-login.login *,
+.woocommerce-checkout form #order_review .woocommerce-checkout-review-order-table td.product-name *,
+.woocommerce-order-received .woocommerce-order *{
     font-family: 'DM Sans' !important;
 }
 .woocommerce-checkout form[name=checkout]{
@@ -3381,7 +3383,8 @@ ul.products li.product .price, ul.products li.product .star-rating,
 .woocommerce-checkout button[name=apply_coupon],
 .woocommerce-checkout header .entry-title,
 .woocommerce-form.woocommerce-form-login.login .woocommerce-form-login__submit,
-.woocommerce-form.woocommerce-form-register.register .woocommerce-form-register__submit{
+.woocommerce-form.woocommerce-form-register.register .woocommerce-form-register__submit,
+.woocommerce-order-received .woocommerce-order li strong{
     font-family: 'DM Sans Bold' !important;
 }
 #order_review_heading,

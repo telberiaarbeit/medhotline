@@ -285,23 +285,6 @@ $covid_title_form = get_field('title_form');
     </div>
 </main><!-- #site-content -->
 <script>
-    // jQuery("#category_medical").change(function(){
-    //     change_link();
-    // });
-    // function change_link(){
-    //     var val = jQuery("#category_medical option:selected").val();
-    //     jQuery(".order-your-test a").each(function(){
-    //         var nhref = "";
-    //         var href = jQuery(this).attr("href").split("=");
-    //         for(var i=0;i<href.length-1;i++){
-    //             nhref += href[i]+"=";
-    //         }
-    //         if(val != 'Wählen Sie Ihren Test'){
-    //             nhref += val;
-    //         }
-    //         jQuery(this).attr("href",nhref);
-    //     });
-    // }
     jQuery(document).ready(function () {
         // Select product name
         jQuery('#product_name').change(function () {
@@ -334,8 +317,8 @@ $covid_title_form = get_field('title_form');
             }else{
                 jQuery('#attr_location').html('<option>Wählen Sie Ihren Standort</option>');
                 jQuery('#attr_person').html('<option>Anzahl der Personen</option>');
+                jQuery('.add-cart-custom').html('<a class="ajax_add_to_cart add_to_cart_button add-cart btn-get-started disabled" href="javascript:void(0)">In den Warenkorb</a>');
             }
-            
         });
         // Select location of product
         jQuery('#attr_location').change(function () {
@@ -364,50 +347,42 @@ $covid_title_form = get_field('title_form');
             if(people == undefined){
                 jQuery('.add-cart-custom').html('<a class="ajax_add_to_cart add_to_cart_button add-cart btn-get-started disabled" href="javascript:void(0)">In den Warenkorb</a>');
             }else{
-                jQuery('.add-cart-custom').html('<a class="ajax_add_to_cart add_to_cart_button add-cart btn-get-started" data-product_id="'+people+'" href="?add-to-cart='+current_id+'&variation_id='+people+'">In den Warenkorb</a>');
                 jQuery('.add-cart-custom').html('<a class="add-cart-new btn-get-started">In den Warenkorb</a>');
-                
             }
         });
-        // jQuery(document).on('change', '.date-custom input', function() {
-        //     var date = jQuery(this).val();
-        //     console.log(date);
-        
-            /* Add cart custom */
-            jQuery(document).on('click', '.add-cart-new', function (e) {
-                e.preventDefault();
-                var product_id = jQuery('#product_name').val();
-                var variation_id = jQuery('#attr_person').find('option:selected').attr("value");
-                var date_product = jQuery('.date-custom input').val();
-                console.log(date_product);
-                var data = {
-                    action: 'woocommerce_ajax_add_to_cart',
-                    product_id: product_id,
-                    variation_id: variation_id,
-                    date_product: date_product
-                };
-                jQuery(document.body).trigger('adding_to_cart', [data]);
-                jQuery.ajax({
-                    type: "POST",
-                    url: wc_add_to_cart_params.ajax_url,
-                    data: data,
-                    beforeSend: function (response) {
-                        //data.removeClass('added').addClass('loading');
-                    },
-                    complete: function (response) {
-                        //data.addClass('added').removeClass('loading');
-                    },
-                    success: function(response){
-                        if (response.error && response.product_url) {
-                            window.location = response.product_url;
-                            return;
-                        } else {
-                            jQuery(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash]);
-                        }
-                    },
-                });
-            }); 
-        // });
+        /* Add cart custom */
+        jQuery(document).on('click', '.add-cart-new', function (e) {
+            e.preventDefault();
+            var product_id = jQuery('#product_name').val();
+            var variation_id = jQuery('#attr_person').find('option:selected').attr("value");
+            var date_product = jQuery('.date-custom input').val();
+            var data = {
+                action: 'woocommerce_ajax_add_to_cart',
+                product_id: product_id,
+                variation_id: variation_id,
+                date_product: date_product
+            };
+            jQuery(document.body).trigger('adding_to_cart', [data]);
+            jQuery.ajax({
+                type: "POST",
+                url: wc_add_to_cart_params.ajax_url,
+                data: data,
+                beforeSend: function (response) {
+                    //data.removeClass('added').addClass('loading');
+                },
+                complete: function (response) {
+                    //data.addClass('added').removeClass('loading');
+                },
+                success: function(response){
+                    if (response.error && response.product_url) {
+                        window.location = response.product_url;
+                        return;
+                    } else {
+                        jQuery(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash]);
+                    }
+                },
+            });
+        });
     });
 </script>
 <?php get_footer('no-review'); ?>

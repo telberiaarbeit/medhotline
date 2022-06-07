@@ -722,7 +722,7 @@ function woocommerce_ajax_add_to_cart() {
         }
 
         $_SESSION[$product_id.'_meta_date'] = $date_product;
-
+        // var_dump($_SESSION[$product_id.'_meta_date']);
         WC_AJAX :: get_refreshed_fragments();
     }else{
         $data = array(
@@ -741,31 +741,19 @@ function display_cart_item_custom_meta_data( $item_data, $cart_item ) {
     $date_product = $_SESSION[$product_id.'_meta_date'];
     if($date_product) {
         $item_data['meta_date'] = array(
-            'key'       => 'Date',
+            'key'       => 'Datum auswählen',
             'value'     => $date_product
         );
     }
-    // unset($_SESSION[$product_id.'_meta_date']);
     return $item_data;
 }
 
-function add_date_to_cart_item( $cart_item_data, $product_id, $variation_id ) {
-    $date_product = $_SESSION[$product_id.'_meta_date'];
-	if ( empty( $date_product ) ) {
-		return $cart_item_data;
-	}
-
-	$cart_item_data['meta_date'] = $date_product;
-	return $cart_item_data;
-}
-
-add_filter( 'woocommerce_add_cart_item_data', 'add_date_to_cart_item', 10, 3 );
 
 // Save cart item custom meta as order item meta data and display it everywhere on orders and email notifications.
 add_action( 'woocommerce_checkout_create_order_line_item', 'save_cart_item_custom_meta_as_order_item_meta', 10, 4 );
 function save_cart_item_custom_meta_as_order_item_meta( $item, $cart_item_key, $values, $order ) {
-    $meta_key = 'Date';
-    if ( isset($values['meta_date']) && isset($values['meta_date']) ) {
-        $item->update_meta_data( $meta_key, $values['meta_date'] );
+    $date_product = $_SESSION[$item->get_product_id().'_meta_date'];
+    if ( isset($date_product) && (!empty($date_product)) ) {
+        $item->update_meta_data( 'Datum auswählen', $date_product );
     }
 }
